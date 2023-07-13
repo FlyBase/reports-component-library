@@ -1,0 +1,56 @@
+@use "colors";
+@use "fonts";
+
+.report-section-header {
+  width: 100%;
+  font-family: fonts.$main;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+
+  &.js-trigger-collapse {
+    cursor: pointer;
+  }
+
+  h2, h3, h4 {
+    margin: 0;
+    padding: 0.3em 0 0.3em 0.5em;
+    font-size: 14px;
+  }
+
+  &.level-1 {
+    background-color: colors.$fbBlue;
+
+    h2 {
+      color: white;
+      font-weight: bold;
+    }
+  }
+
+  &.level-2 {
+    background-color: colors.$sectionGreen;
+
+    h3 {
+      color: colors.$text;
+      font-weight: bold;
+    }
+  }
+
+  &.level-3 {
+    background-color: colors.$sectionLightGreen;
+
+    h4 {
+      color: colors.$text;
+      font-weight: normal;
+    }
+  }
+
+  .fa.fa-plus-square, .fa.fa-minus-square {
+    color: white;
+    background: black;
+    margin: 0 .5em;
+  }
+}

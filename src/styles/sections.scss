@@ -1,0 +1,15 @@
+
+.section-content {
+  width: 100%;
+  overflow-y: hidden;
+  height: auto;
+}
+
+.ribbon-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-right: 6em;
+  padding-bottom: 4em;
+  flex-wrap: wrap;
+}
