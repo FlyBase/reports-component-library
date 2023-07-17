@@ -2,7 +2,7 @@
 @use "fonts";
 
 .report-section-header {
-  width: 100%;
+  width: calc(100% + 30px);
   font-family: fonts.$main;
   display: flex;
   align-items: center;
@@ -10,8 +10,9 @@
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   border-right: 1px solid black;
+  margin: 0 -15px;
 
-  &.js-trigger-collapse {
+  &.collapsible {
     cursor: pointer;
   }
 

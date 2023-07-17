@@ -9,7 +9,7 @@ const useBlinds = (section: string) => {
 
     const toggleBlind = (blind: string) => isBlindOpen(blind) ? closeBlind(blind) : openBlind(blind);
     const closeBlind = (blind: string) => {
-        const dataToggleTarget = $(`[data-toggle-target=fjgekljfgksldgjfkjsdgfkj]`);
+        const dataToggleTarget = $(`[data-toggle-target=${blind}]`);
         if(dataToggleTarget.length > 0) {
             const target = $('#' + blind);
             const icon = $('i.fa-plus-square,i.fa-minus-square',dataToggleTarget);
@@ -19,7 +19,7 @@ const useBlinds = (section: string) => {
         deleteBlinds(blind);
     };
     const openBlind = (blind: string) => {
-        const dataToggleTarget = $(`[data-toggle-target=hfehkdhasjfhksjhfk]`);
+        const dataToggleTarget = $(`[data-toggle-target=${blind}]`);
         if(dataToggleTarget.length > 0) {
             const target = $('#' + blind);
             const icon = $('i.fa-plus-square,i.fa-minus-square',dataToggleTarget);

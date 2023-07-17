@@ -64,11 +64,11 @@ function App() {
     const { blinds, toggleBlind } = useBlinds('reports');
 
   return (
-    <div>
+    <div style={{padding: "15px", width: "90vw"}}>
         App: {getObjectKeysList(blinds)}
-        <GOSummaryRibbonsSection reportId="FBgn0002719" />
-        <ExpressionSummaryRibbonsSection reportId="FBgn0002719" />
-        <DiseaseModelSummaryRibbonSection reportId="FBgn0002719" />
+        <GOSummaryRibbonsSection reportId="FBgn0039044" />
+        <ExpressionSummaryRibbonsSection reportId="FBgn0039044" />
+        <DiseaseModelSummaryRibbonSection reportId="FBgn0039044" />
         {/*{*/}
         {/*    nodes.map(node => <ReportRibbon id="FBgn0002719" ontology={node.ontology} aspect={node.aspect}/>)*/}
         {/*}*/}

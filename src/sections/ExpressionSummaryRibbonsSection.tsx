@@ -19,9 +19,9 @@ interface ExpressionSummaryRibbonsSectionProps {
 const ExpressionSummaryRibbonsSection: React.FC<ExpressionSummaryRibbonsSectionProps> = ({ reportId }) => {
 
     const ribbonData = [
-        { id: reportId, ontology: "go", aspect: "molecular_function", ExplanationComponent: ExpressionSummaryRibbonFlyCellAtlasExplanation },
-        { id: reportId, ontology: "go", aspect: "biological_process", ExplanationComponent: ExpressionSummaryRibbonManuallyCuratedExplanation },
-        { id: reportId, ontology: "go", aspect: "cellular_component", ExplanationComponent: ExpressionSummaryRibbonModEncodeExplanation }
+        { id: reportId, ontology: "expression", aspect: "flycellatlas", ExplanationComponent: ExpressionSummaryRibbonFlyCellAtlasExplanation },
+        { id: reportId, ontology: "expression", aspect: "anatomy", ExplanationComponent: ExpressionSummaryRibbonManuallyCuratedExplanation },
+        { id: reportId, ontology: "expression", aspect: "stages", ExplanationComponent: ExpressionSummaryRibbonModEncodeExplanation }
     ];
 
     const { responses, isLoading, allLoaded, loadData } = useRibbonsAPI(ribbonData);
@@ -48,8 +48,8 @@ const ExpressionSummaryRibbonsSection: React.FC<ExpressionSummaryRibbonsSectionP
                                 const ExplanationComponent = ribbonData[index].ExplanationComponent;
 
                                 return (
-                                    <div className="ribbon-with-explanation">
-                                        <ReportRibbon key={`go-summary-ribbon-${index}`} id={reportId} ontology={ribbonData[index].ontology} aspect={ribbonData[index].aspect} data={response} />
+                                    <div className="ribbon-with-explanation" key={`go-summary-ribbon-${index}`}>
+                                        <ReportRibbon id={reportId} ontology={ribbonData[index].ontology} aspect={ribbonData[index].aspect} data={response} />
                                         <ExplanationComponent />
                                     </div>
                                 );

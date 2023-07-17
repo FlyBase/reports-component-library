@@ -22,7 +22,7 @@ const GOSummaryRibbonsSection: React.FC<GOSummaryRibbonsSectionProps> = ({ repor
     const { isBlindOpen } = useBlinds('reports');
 
     useEffect(() => {
-        if(isBlindOpen('go_summary') && !allLoaded && !isLoading) {
+        if(!allLoaded && !isLoading) {
             loadData();
         }
     }, [allLoaded, isBlindOpen, isLoading, loadData, reportId]);

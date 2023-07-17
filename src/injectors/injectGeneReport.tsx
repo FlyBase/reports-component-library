@@ -11,4 +11,6 @@ const injectGeneReport = () => {
     ]);
 };
 
-export default injectGeneReport;
+if(process.env.NODE_ENV === "production") {
+    injectGeneReport();
+}

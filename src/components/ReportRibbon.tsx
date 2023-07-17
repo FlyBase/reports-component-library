@@ -1,6 +1,6 @@
 import Ribbon, {RGBValue, RibbonComponentProps, RibbonData} from '@flybase/react-ontology-ribbon';
 import '@flybase/react-ontology-ribbon/dist/style.css';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 import React from "react";
 
 
@@ -30,13 +30,13 @@ const ReportRibbon: React.FC<ReportRibbonProps> = ({id, ontology, aspect, data, 
         ribbonTitle += ' - modENCODE RNA-seq'
     }
 
+
     const customGradient: RibbonComponentProps["calcHeatColor"] = ({ numTerms, heatLevels, itemData }) => {
         // custom calcHeatColor needs to deal with zero-term case explicitly
         if (numTerms === 0) return aspect === 'stages' ? grey : white; // to correspond with grey "limit of detection" color in proteome plots
         if (aspect === 'anatomy') return binaryRGB;
 
         const bin = (aspect === 'stages' || ontology === 'disease') ? itemData.descendant_terms.length : itemData.num_annotations - 1;
-
 
         if (aspect === 'flycellatlas')
             return ltblue.map(function (v, i) {

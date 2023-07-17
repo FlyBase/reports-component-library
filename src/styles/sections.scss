@@ -1,8 +1,11 @@
 
 .section-content {
-  width: 100%;
+  width: calc(100% + 30px);
+  margin: 0 -15px;
   overflow-y: hidden;
   height: auto;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
 }
 
 .ribbon-list {

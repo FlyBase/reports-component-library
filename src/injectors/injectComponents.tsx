@@ -1,5 +1,5 @@
 import {JSXElementConstructor, ReactElement} from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom/client';
 
 interface Injection {
     containerId: string,
@@ -12,7 +12,10 @@ const injectComponents = (injections: Injection[]) => {
        if(!container) {
            console.error(`No container with id "${injection.containerId}" found.`);
        }
-       ReactDOM.render(injection.component, container);
+        const root = ReactDOM.createRoot(
+            container as HTMLElement
+        );
+        root.render(injection.component);
     });
 };
 

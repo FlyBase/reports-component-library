@@ -22,7 +22,7 @@ const ReportSectionHeader: React.FC<ReportSectionHeaderProps> = ({ id, heading, 
     const { isBlindOpen } = useBlinds('reports');
 
     return (
-        <div className={classNames("report-section-header", variant, { "js-trigger-collapse": collapsible })}
+        <div className={classNames("report-section-header", variant, { "collapsible": collapsible, "sectionIsOpen": isBlindOpen(id), "sectionIsClosed": !isBlindOpen(id) })}
              onClick={e => onClick && onClick(id)}
         >
             {
