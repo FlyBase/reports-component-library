@@ -1,4 +1,8 @@
 
+/*
+* Define types for non-typescript libraries and global scripts here.
+* */
+
 declare module '@flybase/react-ontology-ribbon' {
 
     export type RGBValue = [number, number, number];
@@ -40,8 +44,3 @@ declare module '@flybase/react-ontology-ribbon' {
 //Set in index.html for local development
 declare var fb_rc: string;
 declare var FBgn: string;
-
-// declare module "@flybase/jQuery-FB2015_02" {
-//     const $ = import("./libs/jquery-ui.min");
-//     export default $;
-// }

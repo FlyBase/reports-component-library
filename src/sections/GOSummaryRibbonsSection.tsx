@@ -8,8 +8,6 @@ interface GOSummaryRibbonsSectionProps {
     reportId: string
 }
 
-
-
 const GOSummaryRibbonsSection: React.FC<GOSummaryRibbonsSectionProps> = ({ reportId }) => {
 
     const ribbonData = [

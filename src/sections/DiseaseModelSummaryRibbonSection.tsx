@@ -8,8 +8,6 @@ interface DiseaseModelSummaryRibbonSectionProps {
     reportId: string
 }
 
-
-
 const DiseaseModelSummaryRibbonSection: React.FC<DiseaseModelSummaryRibbonSectionProps> = ({ reportId }) => {
 
     const ribbonData = [
@@ -23,6 +21,7 @@ const DiseaseModelSummaryRibbonSection: React.FC<DiseaseModelSummaryRibbonSectio
     const { isBlindOpen } = useBlinds('reports');
 
     useEffect(() => {
+        //the section itself isn't collapsible, but can be hidden by the parent section
         if(isBlindOpen("hdm_sub") && !allLoaded && !isLoading) {
             loadData();
         }

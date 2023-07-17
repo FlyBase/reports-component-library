@@ -1,4 +1,21 @@
-
+/**
+ * Returns the value/reference within an item based on a given path
+ *
+ * @remarks
+ * This function can take in any item -- primitive, array, or object. It is most useful with arrays and objects, however.
+ * The path is a string in the form of a js path. (i.e. thing.foo.bar, or foo[0].bar).
+ * It also supports creating undefined paths, including pushing to an array when no index is provided (i.e. foo[]).
+ * NOTE: Although the function will return references instead of values, all primitives in JavaScript are values, so
+ * if the item at the path given is a primitive, a value will be returned instead of a reference.
+ * NOTE: Currently only supports 1D arrays. (i.e. foo[0][1] will NOT work)
+ *
+ * @param item - The thing we are searching in
+ * @param path - The place we are looking at. (Supports js path rules, and empty [] for pushing to an array).
+ * @param createUndefinedPaths - Optional. When true, the function will create values for any place in the path that is undefined. Defaults to false.
+ * @returns The reference to or value of the item located at the path specified, in the item provided.
+ *
+ * @beta
+ */
 const getByPath = (item: any, path: string, createUndefinedPaths = false) => {
     const keys = path.split(".");
 

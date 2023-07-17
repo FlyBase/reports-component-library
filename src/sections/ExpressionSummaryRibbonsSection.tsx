@@ -28,6 +28,7 @@ const ExpressionSummaryRibbonsSection: React.FC<ExpressionSummaryRibbonsSectionP
     const { isBlindOpen } = useBlinds('reports');
 
     useEffect(() => {
+        //the section itself isn't collapsible, but can be hidden by the parent section
         if(isBlindOpen("expression_sub") && !allLoaded && !isLoading) {
             loadData();
         }

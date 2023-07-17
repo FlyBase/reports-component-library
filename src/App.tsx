@@ -1,11 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import './App.css';
 import GOSummaryRibbonsSection from "./sections/GOSummaryRibbonsSection";
-import ReportRibbon from "./components/ReportRibbon";
 import useBlinds from "./hooks/useBlinds";
 import getObjectKeysList from "./helpers/getObjectKeysList";
 import DiseaseModelSummaryRibbonSection from "./sections/DiseaseModelSummaryRibbonSection";
 import ExpressionSummaryRibbonsSection from "./sections/ExpressionSummaryRibbonsSection";
+
+/*
+* This file is for local development only
+* */
 
 const nodes = [
     {

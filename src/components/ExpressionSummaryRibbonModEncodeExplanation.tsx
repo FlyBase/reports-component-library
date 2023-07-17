@@ -1,6 +1,10 @@
 import React from "react";
 import "../styles/expressionData.scss";
 
+/*
+* Code mostly taken from original version on the FlyBase server
+* */
+
 const ExpressionSummaryRibbonModEncodeExplanation = () => {
     return (
         <div className="well well-sm small">

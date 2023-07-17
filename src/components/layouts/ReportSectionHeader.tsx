@@ -1,5 +1,5 @@
 import '../../styles/reportSectionHeader.scss';
-import React, {useEffect} from "react";
+import React  from "react";
 import classNames from "classnames";
 import useBlinds from "../../hooks/useBlinds";
 
@@ -11,6 +11,7 @@ export interface ReportSectionHeaderProps {
     onClick?: (id: string) => void;
 }
 
+//represents the section hierarchy for reports
 export enum ReportSectionHeaderLevel {
     Level1 = "level-1",
     Level2 = "level-2",

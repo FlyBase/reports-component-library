@@ -1,9 +1,16 @@
-import {useEffect, useReducer} from "react";
+import {useReducer} from "react";
 import axios from "axios";
 import {RibbonData} from "@flybase/react-ontology-ribbon";
 
+/**
+ * This file may want to see some updates in the future as more API calls are added to the library,
+ * but for now, it essentially sets up the API call(s) for ribbons, and turns it into a hook.
+ */
+
+
 const isHTData = (ontology: string, aspect: string) => ontology === 'expression' && !['anatomy', 'stages', 'flycellatlas'].includes(aspect);
 
+//Data from this API needs structured differently
 const getHTData = (ontology: string, aspect: string, id: string) => axios.get(`${process.env.REACT_APP_API_BASE_URL}/${ontology}/ht_data/${id}/${aspect}`).then(response => {
     const data = response.data;
     data.resultset = {};
@@ -86,42 +93,6 @@ const getData = (ontology: string, aspect: string, id: string): Promise<RibbonDa
     });
 };
 
-
-const getInitialReducerState = (data: RibbonData[]) => ({
-    data,
-    isLoading: true,
-    isLoaded: false
-});
-
-const reducer = (prevState: ReportRibbonReducerState, action: ReportRibbonReducerAction): ReportRibbonReducerState => {
-    switch (action.type) {
-        case ReportRibbonReducerActionType.SUCCESS: return { data: action.data!, isLoading: false, isLoaded: true };
-        case ReportRibbonReducerActionType.ERROR: return { error: action.error, isLoading: false, isLoaded: true, data: prevState.data };
-        default: return prevState;
-    }
-};
-
-export const useReportsAPI = (ontology: string, aspect: string, id: string) => {
-
-    const [reducerState, updateRibbonData] = useReducer(reducer, [], getInitialReducerState);
-
-    useEffect(() => {
-        getData(ontology, aspect, id).then(
-            data => updateRibbonData({
-                type: ReportRibbonReducerActionType.SUCCESS,
-                data
-            }),
-            error => updateRibbonData({
-                type: ReportRibbonReducerActionType.ERROR,
-                error
-            })
-
-        );
-    }, [ontology, aspect, id]);
-
-    return reducerState;
-};
-
 export type RibbonRequest = {
     ontology: string,
     aspect: string,
@@ -139,6 +110,7 @@ type RibbonReducerAction = {
     data?: (RibbonData[] | string)[]
 };
 
+//used by useReducer to set the state
 const ribbonReducer = (state: RibbonReducerState, action: RibbonReducerAction): RibbonReducerState => {
     if(action.type === "request") return {...state, isLoading: true};
     return {
@@ -148,6 +120,17 @@ const ribbonReducer = (state: RibbonReducerState, action: RibbonReducerAction): 
     };
 };
 
+/**
+ * Custom hook for dealing with multiple API calls for ribbons.
+ *
+ * @remarks
+ * This hook handles making multiple API calls for different types of ribbons. It will call the correct API, and format
+ * the data returned automatically depending on the input info for each ribbon.
+ *
+ * @param ribbonRequests - An array of info about each ribbon to be accessed.
+ * @returns An object containing the responses/errors, state of the API calls, and a function to trigger the loading
+ * of the API calls.
+ */
 export const useRibbonsAPI = (ribbonRequests: RibbonRequest[]): RibbonReducerState & { loadData: () => void } => {
     const [query, dispatch] = useReducer(ribbonReducer, {
         responses: [],

@@ -6,6 +6,7 @@ interface Injection {
     component: ReactElement<string | JSXElementConstructor<any>>
 }
 
+//loop through and inject components into containers with corresponding ids
 const injectComponents = (injections: Injection[]) => {
     injections.forEach(injection => {
        const container = document.getElementById(injection.containerId);

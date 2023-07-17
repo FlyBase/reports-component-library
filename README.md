@@ -81,8 +81,7 @@ Production code should be built separately (see below for more info).
 For local development, there are a couple of things to keep in mind:
 
 - Many of FlyBase's features rely on embedding content/scripts onto the page. Since this library is self-contained,
-you may need to add scripts for local development to work properly. If you need a specific build of a script, jQuery
-for example, you can place it in the `libs` directory and reference it directly. You can also add scripts with a URL
+you may need to add scripts for local development to work properly. You can add scripts with a URL
 to the `public/index.html` file, which is preferable when you don't want the scripts to be loaded by the reports library
 in production, but rather you want the reports library to use something that already exists on a FlyBase page the
 react code will live on.

@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useReducer} from "react";
 import getByPath from "../helpers/getByPath";
-import getObjectKeysList from "../helpers/getObjectKeysList";
 
+// get initial state. If any of the rootPath doesn't exist, create it
 const initializeReducer = (rootPath: string) => {
     const localStorageKey = rootPath.substring(0, rootPath.indexOf(".")) || rootPath;
 
@@ -17,7 +17,8 @@ const initializeReducer = (rootPath: string) => {
     return childValue;
 };
 
-const reducer = (state: any, action: { rootPath: string, newValue: any, replaceAll?: boolean, message?: string }) => {
+//update the state based on a new value
+const reducer = (state: any, action: { rootPath: string, newValue: any, replaceAll?: boolean }) => {
 
     if(JSON.stringify(state) === JSON.stringify(action.newValue)) return state;
 
@@ -30,7 +31,7 @@ const reducer = (state: any, action: { rootPath: string, newValue: any, replaceA
     const keyToUpdate = action.rootPath.substring(action.rootPath.lastIndexOf(".") + 1);
     let childPathObject = getByPath(fullValue, parentPath);
 
-    if(action.replaceAll) {
+    if(action.replaceAll) { // replaces all the localStorage value, not just at a subpath
         return parentPath === keyToUpdate ? childPathObject : childPathObject[keyToUpdate];
     } else {
         if(parentPath === keyToUpdate) {
@@ -46,13 +47,37 @@ const reducer = (state: any, action: { rootPath: string, newValue: any, replaceA
 
     return action.newValue;
 };
-
+/**
+ * A hook for handling localStorage like a variable.
+ *
+ * @remarks
+ * useSmartStorage allows for several useful features when working with localStorage, especially when storing objects
+ * or arrays. LocalStorage only stores strings under a specific key. This hook automatically converts objects to strings
+ * and vise versa.
+ * This hook also allows you to look only at child of something stored in localStorage. For example, if
+ * at key "foo" this object is stored { bar: 1, example: [1,2,3], lastOne: { child: 1 }}, you can look only at the object
+ * under "lastOne" simply: `const [lastOneObject] = useSmartStorage("foo.lastOne")`.
+ * This hook will automatically create values if a path given is undefined.
+ * This hook will also keep in sync with any other hook on the page using the same key.
+ * NOTE: this hook does NOT currently update if localStorage is changed in a different tab.
+ *
+ * @param rootPath - A js path to the child item within localStorage, where the first key is the same key used by localStage to store values.
+ * @returns An array containing: the value in localStorage at the specified path, a function to update localStorage at a
+ * specified path, and a function to delete from localStorage at a specified path. NOTE: the path passed to the update
+ * and delete functions is based on the initial root path automatically.
+ *
+ * @beta
+ */
 const useSmartStorage = (rootPath: string): [any, (path: string, newValue: any) => void, (path: string) => void] => {
-
+    //TODO: support cross tab updates as an option
     const [value, setValue] = useReducer(reducer, rootPath, initializeReducer);
 
     const localStorageKey = rootPath.substring(0, rootPath.indexOf(".")) || rootPath;
 
+    //Updates localStorage when the state changes. useEffect required in order to ensure state is fully updated before
+    //calling dispatchEvent
+    //TODO: add logic to prevent this when triggers because a different hook changes localStorage, firing the event
+    //listener below, and thus this useEffect?
     useEffect(() => {
 
             let fullValue = window.localStorage.getItem(localStorageKey);
@@ -66,8 +91,10 @@ const useSmartStorage = (rootPath: string): [any, (path: string, newValue: any) 
 
     }, [localStorageKey, rootPath, value]);
 
+    //Used to update state when another instance of the hook saves info to localStorage (only for hooks on the same tab)
     const updateValue = useCallback((event: Event) => {
         const realValue = getByPath(JSON.parse(window.localStorage.getItem(localStorageKey)!), rootPath.substring(localStorageKey.length) || rootPath);
+        //Only refresh state if the new value is different. (prevents infinite loops)
         if(JSON.stringify(realValue) !== JSON.stringify(value)) {
             setValue({
                 rootPath,
@@ -77,7 +104,10 @@ const useSmartStorage = (rootPath: string): [any, (path: string, newValue: any) 
         }
     }, [value, rootPath, localStorageKey]);
 
+    //If another hook in the same tab updates localStorage, update the state to match
     useEffect(() => {
+        // "localStorage" is a custom event. The "storage" even does exist, but only fires when localStorage
+        // updates in another tab
         window.addEventListener('localStorage', updateValue);
         return () => window.removeEventListener('localStorage', updateValue);
     }, [setValue, rootPath, localStorageKey, updateValue]);
@@ -85,13 +115,16 @@ const useSmartStorage = (rootPath: string): [any, (path: string, newValue: any) 
     const updateStorage = (path: string, newValue: any) => {
         let newObject = JSON.parse(JSON.stringify(value));
 
+        //Access the value 1 key away from what we want to update. This prevents trying to directly update the value
+        //which does not work when the value is a primitive, since all primitives are pass by value (instead of references).
         const parentPath = path.substring(0, path.lastIndexOf(".")) || path;
         const keyToUpdate = path.substring(path.lastIndexOf(".") + 1);
 
+        //Handles when path is a single key, or an empty string
         let pathObject = parentPath === keyToUpdate ? newObject : getByPath(newObject, parentPath, true);
 
         const match = /(.*)\[(\d*)]$/.exec(keyToUpdate);
-        if(match) {
+        if(match) { // if it's an array
             const [, arrayKey, arrayIndex] = match;
             if( arrayKey !== "" && pathObject[arrayKey] === undefined) {
                 pathObject[arrayKey] = [];
@@ -101,7 +134,7 @@ const useSmartStorage = (rootPath: string): [any, (path: string, newValue: any) 
             } else {
                 pathObject[arrayKey].push(newValue);
             }
-        } else {
+        } else { // if it's an object
             if(keyToUpdate === "") {
                 newObject = newValue;
             } else {
@@ -115,6 +148,7 @@ const useSmartStorage = (rootPath: string): [any, (path: string, newValue: any) 
     const deleteStorage = (path = "") => {
         let newObject = JSON.parse(JSON.stringify(value));
 
+        //See comments above in updateStorage
         const parentPath = path.substring(0, path.lastIndexOf(".")) || path;
         const keyToUpdate = path.substring(path.lastIndexOf(".") + 1);
 

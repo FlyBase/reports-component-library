@@ -19,6 +19,8 @@ const ReportSection: React.FC<RibbonsSectionProps> = ({ sectionId, blindLocation
             const element = document.getElementById(sectionId)!;
             const sectionHeight = element.scrollHeight;
 
+            //js required here because the height of the container is dependent on the content, and css transitions
+            //are only supported for fixed sizes
             element.style.transition = '';
             requestAnimationFrame(function () {
                 element.style.height = (isBlindOpen(sectionId) ? sectionHeight : 0) + 'px';

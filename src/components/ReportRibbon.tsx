@@ -1,7 +1,11 @@
 import Ribbon, {RGBValue, RibbonComponentProps, RibbonData} from '@flybase/react-ontology-ribbon';
 import '@flybase/react-ontology-ribbon/dist/style.css';
-// import 'bootstrap/dist/css/bootstrap.css';
 import React from "react";
+
+/*
+* This component is mostly taken from the original ribbons code on the FlyBase Server.
+* It implements @flybase/react-ontology-ribbon for the ribbons themselves.
+* */
 
 
 export type ReportRibbonProps = Omit<RibbonComponentProps, 'data' | 'title' | 'calcHeatColor' | 'itemTitle'> & {
