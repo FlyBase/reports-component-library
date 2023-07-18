@@ -7,7 +7,7 @@ import "../styles/expressionData.scss";
 
 const ExpressionSummaryRibbonModEncodeExplanation = () => {
     return (
-        <div className="well well-sm small">
+        <div className="ribbon-well ribbon-well-sm ribbon-small">
             Colored tiles in the ribbon indicate the average RNA expression level of the gene at the indicated stages:
             <div id="modENCODEStageExpressionRibbon-legend" className="ribbon-legend">
                 <div style={{float:"left"}}>&nbsp;low</div>
@@ -15,7 +15,7 @@ const ExpressionSummaryRibbonModEncodeExplanation = () => {
             </div>
             as determined by RNA-seq (RPKM) using whole organism samples <a href="/reports/FBrf0225793">modENCODE, Brown et
             al., 2014</a>.
-            For complete stage-specific expression data, view the
+            For complete stage-specific expression data, view the{" "}
             <strong>modENCODE Development RNA-Seq</strong> section under <strong>High-Throughput Expression</strong> below.
         </div>
     );

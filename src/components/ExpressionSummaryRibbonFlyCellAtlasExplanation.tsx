@@ -3,7 +3,7 @@ import "../styles/expressionData.scss";
 
 const ExpressionSummaryRibbonFlyCellAtlasExplanation = () => {
     return (
-        <div className="well well-sm small">
+        <div className="ribbon-well ribbon-well-sm ribbon-small">
             Colored tiles in ribbon indicate that the <a href="/reports/FBrf0252876">Fly
             Cell Atlas project</a> found the gene expressed in that cell type.
             Darker colors mean that more cells of that cell type express the gene:
