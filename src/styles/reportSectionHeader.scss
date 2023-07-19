@@ -25,6 +25,10 @@
   &.level-1 {
     background-color: colors.$fbBlue;
 
+    &.collapsible:hover {
+      background-color: colors.$fbBlueLight;
+    }
+
     h2 {
       color: white;
       font-weight: bold;
@@ -34,6 +38,10 @@
   &.level-2 {
     background-color: colors.$sectionGreen;
 
+    &.collapsible:hover {
+      background-color: colors.$sectionGreenLight;
+    }
+
     h3 {
       color: colors.$text;
       font-weight: bold;
@@ -42,6 +50,10 @@
 
   &.level-3 {
     background-color: colors.$sectionLightGreen;
+
+    &.collapsible:hover {
+      background-color: colors.$sectionLightGreenLight;
+    }
 
     h4 {
       color: colors.$text;
