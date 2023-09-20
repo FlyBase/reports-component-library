@@ -13,7 +13,7 @@ const ExpressionSummaryRibbonFlyCellAtlasExplanation = () => {
             </div>
             Colorless tiles indicate that there is no scRNAseq data for the gene in that
             cell type.
-            <a href="https://www.ebi.ac.uk/gxa/sc/search?flybase_gene_id={uniquename}&amp;species=Drosophila+melanogaster">Query
+            <a href={`https://www.ebi.ac.uk/gxa/sc/search?flybase_gene_id=${(window as { [key: string]: any })[fb_rc]}&amp;species=Drosophila+melanogaster`}>Query
                 the SCEA for this gene</a>.
         </div>
     );
