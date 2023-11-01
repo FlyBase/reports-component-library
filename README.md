@@ -1,6 +1,6 @@
-# FlyBase Reports Component Library
+# FlyBase Component Library
 
-Welcome to the FlyBase Reports Component Library! This repo was started to consolidate react code for FB reports.
+Welcome to the FlyBase Component Library! This repo was started to consolidate react code for FB reports.
 It was started in 2023 by Seth Campbell, and utilizes modern react code and principles. 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app),
 but was ejected to support multiple entry points, so that build files can be split into page-specific chunks.
@@ -85,7 +85,7 @@ you may need to add scripts for local development to work properly. You can add 
 to the `public/index.html` file, which is preferable when you don't want the scripts to be loaded by the reports library
 in production, but rather you want the reports library to use something that already exists on a FlyBase page the
 react code will live on.
-- FlyBase reports use globals for a few items. You can add values for these in `index.html`.
+- FlyBase uses globals for a few items. You can add values for these in `index.html`.
 - Many of FlyBase's dependencies do not use TypeScript. You can add type definitions for these dependencies in `decs.d.ts`.
 - Make sure to set the ENV variables in `.evn.development` to successfully connect to your dev server.
 
