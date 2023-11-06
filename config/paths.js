@@ -59,6 +59,7 @@ module.exports = {
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveModule(resolveApp, 'src/index'),
   injectorGenePage: resolveModule(resolveApp, 'src/injectors/injectGeneReport'),
+  injectorHomePage: resolveModule(resolveApp, 'src/injectors/injectHomePage'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),

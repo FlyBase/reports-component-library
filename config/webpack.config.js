@@ -202,7 +202,8 @@ module.exports = function (webpackEnv) {
     // This means they will be the "root" imports that are included in JS bundle.
     entry: {
       main: paths.appIndexJs,
-      geneReportInjector: paths.injectorGenePage
+      geneReportInjector: paths.injectorGenePage,
+      homePageInjector: paths.injectorHomePage,
     },
     output: {
       // The build folder.
