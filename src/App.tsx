@@ -10,8 +10,8 @@ function App() {
 
 
   return (
-    <div>
-        <MastodonFeed server="mstdn.science" accountHandle="FlyBase" />
+    <div style={{ maxWidth: "600px", maxHeight: "500px" }}>
+        <MastodonFeed server="mastodon.social" accountHandle="FlyBase" domain="mstdn.science" limit={10} />
     </div>
   );
 }

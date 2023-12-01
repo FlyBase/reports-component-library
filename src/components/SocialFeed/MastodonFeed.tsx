@@ -2,11 +2,13 @@ import SocialFeed from "./SocialFeed";
 import {MastodonStatus, useMastodonFeed} from "../../api/mastodon";
 import React, {useEffect} from "react";
 import {SocialPostProps} from "./SocialPost";
+import LoadingIndicator from "./LoadingIndicator";
 
 type MastodonFeedProps = {
     server: string,
     accountHandle: string,
-    domain?: string
+    domain?: string,
+    limit?: number
 };
 
 const mapPostToProps = (post: MastodonStatus): SocialPostProps => {
@@ -19,21 +21,12 @@ const mapPostToProps = (post: MastodonStatus): SocialPostProps => {
     return {
         author: {
             name: status.account.display_name,
-            handle: status.account.acct,
+            handle: status.account.acct.indexOf("@") !== -1 ? status.account.acct.slice(0,status.account.acct.indexOf("@")) : status.account.acct,
             profileImageUrl: status.account.avatar,
             profileUrl: status.account.url
         },
         postedTime: status.edited_at || status.created_at,
         content: status.content,
-        // ...(status.in_reply_to_account_id ? {
-        //     accountInteractedWith: {
-        //         interactionType: "reply",
-        //         name: "",
-        //         handle: "",
-        //         profileImageUrl: "",
-        //         profileUrl: ""
-        //     }
-        // } : ""),
         ...(post.reblog ? {
             accountInteractedWith: {
                 interactionType: "repost",
@@ -60,9 +53,9 @@ const mapPostToProps = (post: MastodonStatus): SocialPostProps => {
     };
 };
 
-const MastodonFeed: React.FC<MastodonFeedProps> = ({ server, accountHandle, domain}) => {
+const MastodonFeed: React.FC<MastodonFeedProps> = ({ server, accountHandle, domain, limit}) => {
 
-    const { posts, accountInfo, loadData, isLoading } = useMastodonFeed(server, accountHandle, domain);
+    const { posts, accountInfo, loadData, isLoading } = useMastodonFeed(server, accountHandle, domain, { limit });
 
     useEffect(() => {
         if(!posts && !isLoading) {
@@ -72,7 +65,7 @@ const MastodonFeed: React.FC<MastodonFeedProps> = ({ server, accountHandle, doma
 
     const formattedPosts: SocialPostProps[] | null = !posts ? null : posts.map(post => mapPostToProps(post));
 
-    if(!formattedPosts) return <div>Loading...</div>;
+    if(!formattedPosts) return <div><LoadingIndicator /></div>;
 
     return <SocialFeed posts={formattedPosts} />
 };

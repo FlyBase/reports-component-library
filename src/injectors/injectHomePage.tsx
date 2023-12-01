@@ -1,7 +1,4 @@
 import injectComponents from "./injectComponents";
-import GOSummaryRibbonsSection from "../sections/GOSummaryRibbonsSection";
-import ExpressionSummaryRibbonsSection from "../sections/ExpressionSummaryRibbonsSection";
-import DiseaseModelSummaryRibbonSection from "../sections/DiseaseModelSummaryRibbonSection";
 import MastodonFeed from "../components/SocialFeed/MastodonFeed";
 import React from "react";
 
@@ -12,7 +9,7 @@ import React from "react";
 //load a gene report with all react code
 const injectHomePage = () => {
     injectComponents([
-        { containerId: "flyBaseMastodonFeed", component:  <MastodonFeed server="mstdn.science" accountHandle="FlyBase" /> },
+        { containerId: "flyBaseMastodonFeed", component:  <MastodonFeed server="mastodon.social" accountHandle="FlyBase" domain="mstdn.science" limit={10} /> },
     ]);
 };
 

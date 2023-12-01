@@ -104,7 +104,7 @@ const SocialPost: React.FC<SocialPostProps> = ({
                 </div>
             </div>
             <div className="post-content">
-                <span dangerouslySetInnerHTML={{ __html: content}}></span>
+                <section dangerouslySetInnerHTML={{ __html: content}}></section>
                 <Card />
             </div>
         </div>

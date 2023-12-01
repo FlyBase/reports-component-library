@@ -158,14 +158,17 @@ export type MastodonStatus = {
     filtered?: MastodonFilterResult[],
 };
 
+export type UseMastodonFeedOptions = {
+    limit?: number
+};
 
 
 export const useMastodonAccountInfo = (server: string, accountHandle: string, domain: string = server) =>
     useAPI<{}, MastodonAccount>(`https://${server}/api/v1/accounts/lookup`, undefined, {acct: `${accountHandle}@${domain}`});
 
-export const useMastodonFeed = (server: string, accountHandle: string, domain: string = server) => {
+export const useMastodonFeed = (server: string, accountHandle: string, domain: string = server, options?: UseMastodonFeedOptions) => {
     const { response: accountInfo, loadData: loadAccountInfo, isLoading: isLoadingAccountInfo } = useMastodonAccountInfo(server, accountHandle, domain);
-    const { response: posts, loadData: loadPosts, isLoading: isLoadingPosts } = useAPI<{}, MastodonStatus[]>(`https://mstdn.science/api/v1/accounts/${accountInfo?.id}/statuses`);
+    const { response: posts, loadData: loadPosts, isLoading: isLoadingPosts } = useAPI<{}, MastodonStatus[]>(`https://${server}/api/v1/accounts/${accountInfo?.id}/statuses`, {}, options);
 
     const loadData = () => {
         if(!accountInfo && !isLoadingAccountInfo) {
