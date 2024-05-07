@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React from 'react';
 import './App.css';
 import MastodonFeed from "./components/SocialFeed/MastodonFeed";
 
