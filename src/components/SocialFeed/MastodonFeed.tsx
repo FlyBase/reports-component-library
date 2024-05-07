@@ -55,7 +55,7 @@ const mapPostToProps = (post: MastodonStatus): SocialPostProps => {
 
 const MastodonFeed: React.FC<MastodonFeedProps> = ({ server, accountHandle, domain, limit}) => {
 
-    const { posts, accountInfo, loadData, isLoading } = useMastodonFeed(server, accountHandle, domain, { limit });
+    const { posts, loadData, isLoading } = useMastodonFeed(server, accountHandle, domain, { limit });
 
     useEffect(() => {
         if(!posts && !isLoading) {
