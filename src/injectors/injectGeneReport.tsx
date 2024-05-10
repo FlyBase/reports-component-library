@@ -2,6 +2,7 @@ import injectComponents from "./injectComponents";
 import GOSummaryRibbonsSection from "../sections/GOSummaryRibbonsSection";
 import ExpressionSummaryRibbonsSection from "../sections/ExpressionSummaryRibbonsSection";
 import DiseaseModelSummaryRibbonSection from "../sections/DiseaseModelSummaryRibbonSection";
+import GeneToolKitMostCommonlyUsedSection from "../sections/GeneToolKitMostCommonlyUsedSection";
 
 /*
 * This file is a webpack entry point, and will get built separately when running `yarn build`
@@ -13,6 +14,7 @@ const injectGeneReport = () => {
         { containerId: "goSummaryRibbonSectionContainer", component: <GOSummaryRibbonsSection reportId={FBgn} /> },
         { containerId: "expressionSummaryRibbonsSectionContainer", component: <ExpressionSummaryRibbonsSection reportId={FBgn} /> },
         { containerId: "diseaseModelSummaryRibbonSectionContainer", component: <DiseaseModelSummaryRibbonSection reportId={FBgn} /> },
+        { containerId: "geneToolkitSectionContainer", component: <GeneToolKitMostCommonlyUsedSection /> },
     ]);
 };
 

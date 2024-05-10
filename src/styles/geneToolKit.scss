@@ -1,0 +1,10 @@
+@use "fonts";
+
+#gene-toolkit-section-wrapper {
+  margin: 15px 0 0 15px;
+
+  p {
+    font-family: fonts.$main;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,96 @@
+@use "colors";
+@use "fonts";
+
+table {
+  border-collapse: collapse;
+  max-width: 100%;
+
+  * {
+    font-family: fonts.$main;
+    font-size: 14px;
+  }
+
+  thead {
+    background-color: colors.$sectionGreen;
+
+    tr th {
+      text-align: left;
+      color: white;
+    }
+  }
+
+  tbody {
+    .gene-toolkit-category-header {
+      background-color: colors.$sectionLightGreen;
+      font-weight: bold;
+    }
+
+    .gene-toolkit-subcategory-row {
+
+      td {
+        padding: 0;
+      }
+
+      .gene-toolkit-subcategory-category {
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 3px 20px 3px 7px;
+
+        span {
+          padding-right: 25px;
+        }
+
+        button {
+          background-color: colors.$fbBrightBlue;
+          border: 2px solid colors.$fbBlueLight;
+          border-radius: 10px;
+          color: white;
+          padding: 3px 13px;
+          font-size: 16px;
+
+          &:hover {
+            cursor: pointer;
+            background-color: colors.$fbBlueLight;
+          }
+        }
+      }
+
+      .gene-toolkit-subcategory-common-allele {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 7px;
+
+        a:first-child {
+          padding-right: 25px;
+
+          sup {
+            vertical-align: top;
+            font-size: 10px;
+          }
+        }
+
+        a {
+          color: colors.$fbLinkBlue;
+          font-weight: bold;
+        }
+
+        svg {
+          height: 20px;
+          width: 20px;
+          transform: scale(2.35);
+        }
+
+      }
+
+    }
+  }
+
+  th, td {
+    border: 1px solid black;
+    padding: 7px;
+  }
+}
