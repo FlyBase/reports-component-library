@@ -23,7 +23,8 @@ const ReportSectionHeader: React.FC<ReportSectionHeaderProps> = ({ id, heading, 
     const { isBlindOpen } = useBlinds('reports');
 
     return (
-        <div className={classNames("report-section-header", variant, { "collapsible": collapsible, "sectionIsOpen": isBlindOpen(id), "sectionIsClosed": !isBlindOpen(id) })}
+        <div id={`${id}-header`}
+             className={classNames("report-section-header", variant, { "collapsible": collapsible, "section-is-open": isBlindOpen(id), "section-is-closed": !isBlindOpen(id) })}
              onClick={e => onClick && onClick(id)}
         >
             {
@@ -31,9 +32,9 @@ const ReportSectionHeader: React.FC<ReportSectionHeaderProps> = ({ id, heading, 
             }
             {(() => {
                 switch (variant) {
-                    case ReportSectionHeaderLevel.Level1: return <h2>{heading}</h2>;
-                    case ReportSectionHeaderLevel.Level2: return <h3>{heading}</h3>;
-                    case ReportSectionHeaderLevel.Level3: return <h4>{heading}</h4>;
+                    case ReportSectionHeaderLevel.Level1: return <h2>{" "}{heading}</h2>;
+                    case ReportSectionHeaderLevel.Level2: return <h3>{" "}{heading}</h3>;
+                    case ReportSectionHeaderLevel.Level3: return <h4>{" "}{heading}</h4>;
                     default: return null;
                 }
             })()}

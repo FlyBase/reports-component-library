@@ -7,7 +7,6 @@ table {
 
   * {
     font-family: fonts.$main;
-    font-size: 14px;
   }
 
   thead {
@@ -49,6 +48,7 @@ table {
           color: white;
           padding: 3px 13px;
           font-size: 16px;
+          white-space: nowrap;
 
           &:hover {
             cursor: pointer;
@@ -67,15 +67,21 @@ table {
         a:first-child {
           padding-right: 25px;
 
+          // This is redundant for report pages, since the normalize.less styles are the same
+          // included for local development
           sup {
-            vertical-align: top;
-            font-size: 10px;
+            vertical-align: baseline;
+            font-size: 75%;
+            position: relative;
+            line-height: 0;
+            top: -.5em;
           }
         }
 
         a {
           color: colors.$fbLinkBlue;
           font-weight: bold;
+          text-decoration: none;
         }
 
         svg {

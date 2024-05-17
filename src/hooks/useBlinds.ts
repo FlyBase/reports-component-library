@@ -26,9 +26,11 @@ const useBlinds = (section: string) => {
         const dataToggleTarget = $(`[data-toggle-target=${blind}]`);
         if(dataToggleTarget.length > 0) {
             const target = $('#' + blind);
-            const icon = $('i.fa-plus-square,i.fa-minus-square',dataToggleTarget);
-            icon.removeClass("fa-plus-square fa-minus-square").addClass("fa-plus-square");
-            target.hide('blind', () => DURATION);
+            if(!target.hasClass("section-content")) {
+                const icon = $('i.fa-plus-square,i.fa-minus-square',dataToggleTarget);
+                icon.removeClass("fa-plus-square fa-minus-square").addClass("fa-plus-square");
+                target.hide('blind', () => DURATION);
+            }
         }
         deleteBlinds(blind);
     };
@@ -36,9 +38,11 @@ const useBlinds = (section: string) => {
         const dataToggleTarget = $(`[data-toggle-target=${blind}]`);
         if(dataToggleTarget.length > 0) {
             const target = $('#' + blind);
-            const icon = $('i.fa-plus-square,i.fa-minus-square',dataToggleTarget);
-            icon.removeClass("fa-plus-square fa-minus-square").addClass("fa-minus-square");
-            target.show();
+            if(!target.hasClass("section-content")) {
+                const icon = $('i.fa-plus-square,i.fa-minus-square',dataToggleTarget);
+                icon.removeClass("fa-plus-square fa-minus-square").addClass("fa-minus-square");
+                target.show();
+            }
         }
         updateBlinds(blind, true);
     };

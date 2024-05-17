@@ -79,21 +79,20 @@ const useSmartStorage = (rootPath: string): [any, (path: string, newValue: any) 
     //TODO: add logic to prevent this when triggers because a different hook changes localStorage, firing the event
     //listener below, and thus this useEffect?
     useEffect(() => {
-
-            let fullValue = window.localStorage.getItem(localStorageKey);
-            fullValue = fullValue === null ? {} : JSON.parse(fullValue);
-            const parentPath = rootPath.substring(localStorageKey.length + 1, rootPath.lastIndexOf(".")) || rootPath;
-            const keyToUpdate = rootPath.substring(rootPath.lastIndexOf(".") + 1);
-            let childPathObject = getByPath(fullValue, parentPath);
-            childPathObject[keyToUpdate] = value;
-            window.localStorage.setItem(localStorageKey, JSON.stringify(fullValue));
-            window.dispatchEvent(new CustomEvent('localStorage'));
-
+        let fullValue = window.localStorage.getItem(localStorageKey);
+        fullValue = fullValue === null ? {} : JSON.parse(fullValue);
+        const parentPath = rootPath.substring(localStorageKey.length + 1, rootPath.lastIndexOf(".")) || rootPath;
+        const keyToUpdate = rootPath.substring(rootPath.lastIndexOf(".") + 1);
+        let childPathObject = getByPath(fullValue, parentPath);
+        childPathObject[keyToUpdate] = value;
+        window.localStorage.setItem(localStorageKey, JSON.stringify(fullValue));
+        window.dispatchEvent(new CustomEvent('localStorage'));
     }, [localStorageKey, rootPath, value]);
 
     //Used to update state when another instance of the hook saves info to localStorage (only for hooks on the same tab)
     const updateValue = useCallback((event: Event) => {
         const realValue = getByPath(JSON.parse(window.localStorage.getItem(localStorageKey)!), rootPath.substring(localStorageKey.length) || rootPath);
+
         //Only refresh state if the new value is different. (prevents infinite loops)
         if(JSON.stringify(realValue) !== JSON.stringify(value)) {
             setValue({

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback, useEffect, useMemo, useRef} from "react";
 import ReportSectionHeader, {ReportSectionHeaderProps} from "./ReportSectionHeader";
 import useBlinds from "../../hooks/useBlinds";
 import classNames from "classnames";
@@ -13,31 +13,43 @@ const ReportSection: React.FC<RibbonsSectionProps> = ({ sectionId, blindLocation
 
     const { toggleBlind, isBlindOpen } = useBlinds(blindLocation);
 
-    const handleClick = () => {
-        if(collapsible) {
+    const sectionIsOpen = useMemo(() => isBlindOpen(sectionId), [isBlindOpen, sectionId]);
+    const sectionContentElement = useRef<HTMLElement>(null);
 
-            const element = document.getElementById(sectionId)!;
-            const sectionHeight = element.scrollHeight;
+    const openSection = useCallback(() => {
+        sectionContentElement.current!.style.transition = "height .4s";
+        requestAnimationFrame(() => {
+            sectionContentElement.current!.style.height = `${sectionContentElement.current!.scrollHeight}px`;
+            setTimeout(() => {
+                sectionContentElement.current!.style.height = `auto`;
+            }, 400)
+        });
+    }, []);
 
-            //js required here because the height of the container is dependent on the content, and css transitions
-            //are only supported for fixed sizes
-            element.style.transition = '';
-            requestAnimationFrame(function () {
-                element.style.height = (isBlindOpen(sectionId) ? sectionHeight : 0) + 'px';
-                element.style.transition = 'height .4s';
-                requestAnimationFrame(function () {
-                    element.style.height = (isBlindOpen(sectionId) ? 0 : sectionHeight) + 'px';
-                });
+    const closeSection = useCallback(() => {
+        sectionContentElement.current!.style.transition = "";
+        requestAnimationFrame(() => {
+            sectionContentElement.current!.style.height = `${sectionContentElement.current!.scrollHeight}px`;
+            sectionContentElement.current!.style.transition = "height .4s";
+            requestAnimationFrame(() => {
+                sectionContentElement.current!.style.height = `0px`;
             });
+        });
+    }, []);
 
-            toggleBlind(sectionId);
-        }
-    };
+    useEffect(() => {
+        sectionIsOpen ? openSection() : closeSection();
+    }, [closeSection, openSection, sectionIsOpen]);
+
+    const handleClick = () => collapsible && toggleBlind(sectionId);
 
     return (
         <>
             <ReportSectionHeader id={sectionId} {...sectionHeaderProps} collapsible={collapsible} onClick={() => handleClick()}/>
-            <section id={sectionId} className={classNames("section-content", { collapsed: collapsible && !isBlindOpen(sectionId) })}>
+            <section id={sectionId}
+                     className={classNames("section-content", { collapsed: collapsible && !sectionIsOpen })}
+                     ref={sectionContentElement}
+            >
                 {children}
             </section>
         </>

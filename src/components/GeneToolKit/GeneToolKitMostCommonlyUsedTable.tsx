@@ -35,16 +35,36 @@ const GENE_TOOLKIT_TABLE_CATEGORIES: GeneToolKitTableCategory[] = [
         subCategories: [
             {
                 name: "UAS RNAi",
-                filterValue: "loss of function"
+                filterValue: "loss of function",
+                mostCommonlyUsed: {
+                    name: "Pka-C1<sup>H1</sup>",
+                    id: "FBfake003283",
+                    stocks: 17
+                }
             },{
                 name: "UAS wild-type cDNA",
-                filterValue: "loss of function"
+                filterValue: "loss of function",
+                mostCommonlyUsed: {
+                    name: "Pka-C1<sup>H1</sup>",
+                    id: "FBfake003283",
+                    stocks: 17
+                }
             },{
                 name: "Genomic rescue",
-                filterValue: "loss of function"
+                filterValue: "loss of function",
+                mostCommonlyUsed: {
+                    name: "Pka-C1<sup>H1</sup>",
+                    id: "FBfake003283",
+                    stocks: 17
+                }
             },{
                 name: "Fluorescently-tagged genomic rescue",
-                filterValue: "loss of function"
+                filterValue: "loss of function",
+                mostCommonlyUsed: {
+                    name: "Pka-C1<sup>H1</sup>",
+                    id: "FBfake003283",
+                    stocks: 17
+                }
             }
         ]
     },{
@@ -76,10 +96,8 @@ const GeneToolKitMostCommonlyUsedTable: React.FC = () => {
             <tbody>
                 {
                     GENE_TOOLKIT_TABLE_CATEGORIES.map((category, index) => (
-                        <>
-                            <tr key={`GeneToolKitTableCategory-${category.name}-${index}`}
-                                className="gene-toolkit-category-header"
-                            >
+                        <React.Fragment key={`GeneToolKitTableCategory-${category.name}-${index}`}>
+                            <tr className="gene-toolkit-category-header">
                                 <td colSpan={2}>{category.name}</td>
                             </tr>
                             {
@@ -109,7 +127,7 @@ const GeneToolKitMostCommonlyUsedTable: React.FC = () => {
                                     </tr>
                                 ))
                             }
-                        </>
+                        </React.Fragment>
                     ))
                 }
             </tbody>
