@@ -2,7 +2,7 @@ import SocialFeed from "./SocialFeed";
 import {MastodonStatus, useMastodonFeed} from "../../api/mastodon";
 import React, {useEffect} from "react";
 import {SocialPostProps} from "./SocialPost";
-import LoadingIndicator from "./LoadingIndicator";
+import LoadingIndicator from "../icons/LoadingIndicator";
 
 type MastodonFeedProps = {
     server: string,

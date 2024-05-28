@@ -1,7 +1,7 @@
 import React from "react";
-import ReplyIcon from "./ReplyIcon";
-import GenericAccountProfileIcon from "./GenericAccountProfileIcon";
-import RepostIcon from "./RepostIcon";
+import ReplyIcon from "../icons/ReplyIcon";
+import GenericAccountProfileIcon from "../icons/GenericAccountProfileIcon";
+import RepostIcon from "../icons/RepostIcon";
 import "../../styles/socialFeed.scss";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";

@@ -24,6 +24,9 @@ table {
       font-weight: bold;
     }
 
+    // TODO: remove or replace
+    tr:last-child td { vertical-align: top; }
+
     .gene-toolkit-subcategory-row {
 
       td {
@@ -64,25 +67,59 @@ table {
 
         padding: 7px;
 
-        a:first-child {
-          padding-right: 25px;
+        ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          width: 100%;
 
-          // This is redundant for report pages, since the normalize.less styles are the same
-          // included for local development
-          sup {
-            vertical-align: baseline;
-            font-size: 75%;
-            position: relative;
-            line-height: 0;
-            top: -.5em;
+
+          display: flex;
+          flex-direction: column;
+
+          //display: grid;
+          //grid-auto-flow: column;
+          //grid-template-rows: repeat(5, auto);
+          //li:nth-child(5n+1) { padding-top: 0; }
+          //column-gap: 40px;
+
+
+          li {
+            margin: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            //justify-content: space-between;
+            padding: 7px 0 0 0;
+
+            &:first-child {
+              padding-top: 0;
+            }
+
+            a {
+              color: colors.$fbLinkBlue;
+              font-weight: bold;
+              text-decoration: none;
+
+              &:first-child {
+                padding-right: 5px;
+                //padding-right: 25px;
+
+                // This is redundant for report pages, since the normalize.less styles are the same
+                // included for local development
+                sup {
+                  vertical-align: baseline;
+                  font-size: 75%;
+                  position: relative;
+                  line-height: 0;
+                  top: -.5em;
+                }
+              }
+            }
           }
         }
 
-        a {
-          color: colors.$fbLinkBlue;
-          font-weight: bold;
-          text-decoration: none;
-        }
+
 
         svg {
           height: 20px;

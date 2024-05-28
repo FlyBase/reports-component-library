@@ -1,0 +1,91 @@
+@use "fonts";
+@use "colors";
+
+.multi-text-input {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 10px);
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0 0 0 5px;
+  overflow: hidden;
+
+  .multi-text-input-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 5px 5px 5px 0;
+    gap: 5px;
+
+    li {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      background-color: colors.$fbInputBlue;
+      padding: 2px 7px;
+      border-radius: 20px;
+      cursor: pointer;
+
+      span {
+        padding-right: 8px;
+        font-family: fonts.$main;
+        font-size: 14px;
+        font-style: italic;
+        color: white;
+      }
+
+      svg {
+        height: 12px;
+        fill: white;
+      }
+    }
+  }
+
+  .multi-text-input-add-new-item {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    height: 25px;
+    gap: 5px;
+
+    input {
+      flex-grow: 1;
+      height: 100%;
+      padding: 0;
+      margin: 0 0 0 4px;
+      border: none;
+      font-size: 14px;
+      font-family: fonts.$main;
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+
+    .add-new-icon-wrapper {
+      padding: 0;
+      margin: 0;
+      height: 22px;
+      width: 40px;
+      background: colors.$fbInputBlue;
+      border-top-left-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+
+      svg {
+        fill: white;
+        height: 16px;
+        width: 16px;
+
+      }
+    }
+
+
+  }
+}

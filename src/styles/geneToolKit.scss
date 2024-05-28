@@ -1,10 +1,21 @@
 @use "fonts";
 
-#gene-toolkit-section-wrapper {
-  margin: 15px;
+#gene_tool_kit {
 
-  p {
-    font-family: fonts.$main;
-    font-size: 14px;
+
+  #gene-toolkit-section-wrapper {
+    margin: 15px;
+    width: fit-content;
+
+    p {
+      font-family: fonts.$main;
+      font-size: 14px;
+      width: 0;
+      min-width: 100%;
+    }
+
+
   }
+
 }
+
