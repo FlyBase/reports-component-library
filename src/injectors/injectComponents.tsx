@@ -1,5 +1,11 @@
 import {JSXElementConstructor, ReactElement} from "react";
 import ReactDOM from 'react-dom/client';
+import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+
+const client = new ApolloClient({
+    uri: "/graphql",
+    cache: new InMemoryCache()
+});
 
 interface Injection {
     containerId: string,
@@ -16,7 +22,11 @@ const injectComponents = (injections: Injection[]) => {
         const root = ReactDOM.createRoot(
             container as HTMLElement
         );
-        root.render(injection.component);
+        root.render(
+            <ApolloProvider client={client}>
+                {injection.component}
+            </ApolloProvider>
+        );
     });
 };
 

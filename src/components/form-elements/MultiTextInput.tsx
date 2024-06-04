@@ -4,11 +4,12 @@ import React, {useEffect, useId, useRef, useState} from "react";
 import PlusIcon from "../icons/PlusIcon";
 
 type MultiTextInputProps = {
-    defaultList?: string[]
-    onChange?: (items: string[]) => void
+    defaultList?: string[],
+    onChange?: (items: string[]) => void,
+    placeholder?: string
 };
 
-const MultiTextInput: React.FC<MultiTextInputProps> = ({ defaultList = [], onChange }) => {
+const MultiTextInput: React.FC<MultiTextInputProps> = ({ defaultList = [], onChange, placeholder = "Placeholder" }) => {
 
     const id = useId();
     const [items, setItems] = useState(defaultList);
@@ -71,7 +72,7 @@ const MultiTextInput: React.FC<MultiTextInputProps> = ({ defaultList = [], onCha
                   }}
             >
                 <input type="text"
-                       placeholder="Filter..."
+                       placeholder={placeholder}
                        value={newItem}
                        onChange={e => setNewItem(e.target.value)}
                        ref={newItemInputRef}

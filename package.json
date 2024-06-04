@@ -4,6 +4,7 @@
   "private": true,
   "main": "src/index.tsx",
   "dependencies": {
+    "@apollo/client": "^3.10.4",
     "@babel/core": "^7.16.0",
     "@babel/plugin-syntax-flow": "^7.14.5",
     "@babel/plugin-transform-react-jsx": "^7.14.9",
@@ -41,6 +42,7 @@
     "eslint-webpack-plugin": "^3.1.1",
     "file-loader": "^6.2.0",
     "fs-extra": "^10.0.0",
+    "graphql": "^16.8.1",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.3",
@@ -71,7 +73,7 @@
     "style-loader": "^3.3.1",
     "tailwindcss": "^3.0.2",
     "terser-webpack-plugin": "^5.2.5",
-    "typescript": "^4.4.2",
+    "typescript": "^5.4.5",
     "web-vitals": "^2.1.0",
     "webpack": "^5.88.1",
     "webpack-dev-server": "^4.6.0",
@@ -84,7 +86,11 @@
     "test": "node scripts/test.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "fb-publish": "./scripts/fbPublish.sh"
+    "fb-publish": "./scripts/fbPublish.sh",
+    "compile": "graphql-codegen --require dotenv/config --config codegen.ts dotenv_config_path=.env.production",
+    "compile:dev": "graphql-codegen --require dotenv/config --config codegen.ts dotenv_config_path=.env.development",
+    "watch": "graphql-codegen -w --require dotenv/config --config codegen.ts dotenv_config_path=.env.production",
+    "watch:dev": "graphql-codegen -w --require dotenv/config --config codegen.ts dotenv_config_path=.env.development"
   },
   "eslintConfig": {
     "extends": [
@@ -107,6 +113,9 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.2.6",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@storybook/addon-essentials": "^7.0.26",
     "@storybook/addon-interactions": "^7.0.26",
     "@storybook/addon-links": "^7.0.26",
@@ -118,6 +127,7 @@
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-plugin-storybook": "^0.6.12",
     "prop-types": "^15.8.1",
+    "storybook-addon-apollo-client": "^7.3.0",
     "webpack": "^5.88.1"
   },
   "jest": {
