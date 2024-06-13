@@ -11,7 +11,7 @@ export default {
                 request: {
                     query: geneTookKitMostCommonlyUsed,
                     variables: {
-                        geneId: "FBgnTEST"
+                        geneId: "FBgn0020278"
                     }
                 },
                 result: {
@@ -25,7 +25,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>MI02446-TG4.0</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0096753",
@@ -37,7 +38,8 @@ export default {
                                             {
                                                 "name": "loss of function allele"
                                             }
-                                        ]
+                                        ],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0220428",
@@ -45,7 +47,8 @@ export default {
                                         "stocksCount": "1",
                                         "pubCount": "2",
                                         "symbol": "loco<up>GE24954</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0246454",
@@ -53,7 +56,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>358</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0096750",
@@ -61,7 +65,8 @@ export default {
                                         "stocksCount": "1",
                                         "pubCount": "2",
                                         "symbol": "loco<up>rC56</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0179031",
@@ -69,7 +74,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>f04960</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0260332",
@@ -77,7 +83,8 @@ export default {
                                         "stocksCount": "1",
                                         "pubCount": "1",
                                         "symbol": "loco<up>MI02446</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0179033",
@@ -85,7 +92,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "3",
                                         "symbol": "loco<up>d06164</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0096755",
@@ -97,7 +105,8 @@ export default {
                                             {
                                                 "name": "loss of function allele"
                                             }
-                                        ]
+                                        ],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0096757",
@@ -109,7 +118,8 @@ export default {
                                             {
                                                 "name": "loss of function allele"
                                             }
-                                        ]
+                                        ],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0179032",
@@ -117,7 +127,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "2",
                                         "symbol": "loco<up>d09879</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0096756",
@@ -125,7 +136,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>3-109</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0227644",
@@ -133,7 +145,8 @@ export default {
                                         "stocksCount": "1",
                                         "pubCount": "1",
                                         "symbol": "loco<up>NP3117</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0129253",
@@ -141,7 +154,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "2",
                                         "symbol": "loco<up>C139</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0096758",
@@ -153,7 +167,8 @@ export default {
                                             {
                                                 "name": "loss of function allele"
                                             }
-                                        ]
+                                        ],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0158997",
@@ -161,7 +176,8 @@ export default {
                                         "stocksCount": "1",
                                         "pubCount": "3",
                                         "symbol": "loco<up>EY04589</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0227643",
@@ -169,7 +185,8 @@ export default {
                                         "stocksCount": "1",
                                         "pubCount": "1",
                                         "symbol": "loco<up>NP3000</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0372911",
@@ -177,7 +194,8 @@ export default {
                                         "stocksCount": "1",
                                         "pubCount": "1",
                                         "symbol": "loco<up>G4675</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0190826",
@@ -185,7 +203,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "2",
                                         "symbol": "loco<up>P452</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0246456",
@@ -193,7 +212,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>370</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0147043",
@@ -201,7 +221,8 @@ export default {
                                         "stocksCount": "1",
                                         "pubCount": "2",
                                         "symbol": "loco<up>KG02176</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0190811",
@@ -213,7 +234,8 @@ export default {
                                             {
                                                 "name": "amorphic allele - genetic evidence"
                                             }
-                                        ]
+                                        ],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0191289",
@@ -221,7 +243,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>P237</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0246457",
@@ -229,7 +252,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>387</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0246453",
@@ -237,7 +261,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>318</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0258225",
@@ -245,7 +270,8 @@ export default {
                                         "stocksCount": "1",
                                         "pubCount": "1",
                                         "symbol": "loco<up>MI01263</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0096752",
@@ -257,7 +283,8 @@ export default {
                                             {
                                                 "name": "loss of function allele"
                                             }
-                                        ]
+                                        ],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0129252",
@@ -265,7 +292,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>a.96a.2A.hs</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0129254",
@@ -273,7 +301,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>371</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0282736",
@@ -281,7 +310,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>rev7</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0129251",
@@ -289,7 +319,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>a.96a.5A.hs</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0096754",
@@ -301,7 +332,8 @@ export default {
                                             {
                                                 "name": "loss of function allele"
                                             }
-                                        ]
+                                        ],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0246455",
@@ -309,7 +341,8 @@ export default {
                                         "stocksCount": "0",
                                         "pubCount": "1",
                                         "symbol": "loco<up>455</up>",
-                                        "classes": []
+                                        "classes": [],
+                                        "tagUses": []
                                     },
                                     {
                                         "id": "FBal0096751",
@@ -321,7 +354,8 @@ export default {
                                             {
                                                 "name": "loss of function allele"
                                             }
-                                        ]
+                                        ],
+                                        "tagUses": []
                                     }
                                 ]
                             }
@@ -333,6 +367,7 @@ export default {
                                         "id": "FBal0286569",
                                         "paperCount": "0",
                                         "stocksCount": "1",
+                                        "pubCount": "1",
                                         "symbol": "loco<up>UAS.ORF.Tag:HA</up>",
                                         "transgenicProductClasses": [
                                             {
@@ -355,6 +390,7 @@ export default {
                                         "id": "FBal0196072",
                                         "paperCount": "2",
                                         "stocksCount": "0",
+                                        "pubCount": "2",
                                         "symbol": "loco<up>UAS.cSa</up>",
                                         "transgenicProductClasses": [
                                             {
@@ -373,6 +409,7 @@ export default {
                                         "id": "FBal0129249",
                                         "paperCount": "1",
                                         "stocksCount": "0",
+                                        "pubCount": "1",
                                         "symbol": "loco<up>a.96a.hs</up>",
                                         "transgenicProductClasses": [
                                             {
@@ -391,6 +428,7 @@ export default {
                                         "id": "FBal0190533",
                                         "paperCount": "1",
                                         "stocksCount": "0",
+                                        "pubCount": "1",
                                         "symbol": "loco<up>c1.UAS</up>",
                                         "transgenicProductClasses": [
                                             {
@@ -412,6 +450,7 @@ export default {
                                         "id": "FBal0209936",
                                         "paperCount": "5",
                                         "stocksCount": "1",
+                                        "pubCount": "8",
                                         "symbol": "loco<up>GD1282</up>",
                                         "transgenicProductClasses": [
                                             {
@@ -430,6 +469,7 @@ export default {
                                         "id": "FBal0189785",
                                         "paperCount": "1",
                                         "stocksCount": "0",
+                                        "pubCount": "1",
                                         "symbol": "loco<up>hs.2xT:Zzzz\\FLAG</up>",
                                         "transgenicProductClasses": [],
                                         "classes": [],
@@ -444,6 +484,7 @@ export default {
                                         "id": "FBal0196071",
                                         "paperCount": "2",
                                         "stocksCount": "0",
+                                        "pubCount": "2",
                                         "symbol": "loco<up>UAS.EGFP</up>",
                                         "transgenicProductClasses": [
                                             {
@@ -466,6 +507,7 @@ export default {
                                         "id": "FBal0258739",
                                         "paperCount": "1",
                                         "stocksCount": "1",
+                                        "pubCount": "2",
                                         "symbol": "loco<up>KK100249</up>",
                                         "transgenicProductClasses": [
                                             {
@@ -484,6 +526,7 @@ export default {
                                         "id": "FBal0189719",
                                         "paperCount": "1",
                                         "stocksCount": "0",
+                                        "pubCount": "1",
                                         "symbol": "loco<up>c1ΔRGS.UAS</up>",
                                         "transgenicProductClasses": [
                                             {
@@ -502,6 +545,7 @@ export default {
                                         "id": "FBal0370470",
                                         "paperCount": "1",
                                         "stocksCount": "0",
+                                        "pubCount": "2",
                                         "symbol": "loco<up>RNAi.UAS.cUa</up>",
                                         "transgenicProductClasses": [
                                             {
@@ -520,6 +564,7 @@ export default {
                                         "id": "FBal0189740",
                                         "paperCount": "1",
                                         "stocksCount": "0",
+                                        "pubCount": "1",
                                         "symbol": "loco<up>c1ΔGoLoco.UAS</up>",
                                         "transgenicProductClasses": [
                                             {
@@ -538,6 +583,7 @@ export default {
                                         "id": "FBal0248211",
                                         "paperCount": "0",
                                         "stocksCount": "1",
+                                        "pubCount": "1",
                                         "symbol": "loco<up>HMS00455</up>",
                                         "transgenicProductClasses": [
                                             {
@@ -556,6 +602,7 @@ export default {
                                         "id": "FBal0286568",
                                         "paperCount": "0",
                                         "stocksCount": "0",
+                                        "pubCount": "1",
                                         "symbol": "loco<up>UAS.ORF</up>",
                                         "transgenicProductClasses": [
                                             {
@@ -566,26 +613,6 @@ export default {
                                         "regRegions": [
                                             {
                                                 "symbol": "UASt"
-                                            }
-                                        ],
-                                        "taggedWith": []
-                                    },
-                                    {
-                                        "id": "FBal0286568",
-                                        "paperCount": "0",
-                                        "stocksCount": "0",
-                                        "symbol": "loco<up>UAS.ORF</up>",
-                                        "transgenicProductClasses": [
-                                            {
-                                                "transgenicProductClass": "wild_type"
-                                            },{
-                                                "transgenicProductClass": "genomic_DNA"
-                                            }
-                                        ],
-                                        "classes": [],
-                                        "regRegions": [
-                                            {
-                                                "symbol": "FBgnTEST"
                                             }
                                         ],
                                         "taggedWith": []

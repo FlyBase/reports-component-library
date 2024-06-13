@@ -1,6 +1,6 @@
 import {gql} from "../../__generated__";
 
-const geneTookKitMostCommonlyUsed = gql(`
+const geneTookKitMostCommonlyUsed = gql(/* GraphQL */ `
     query GeneToolKitMostCommonlyUsed($geneId: String) {
         classicalAndInsertionsAlleles: genes(condition: { id: $geneId }) {
             alleles(condition: {
@@ -15,6 +15,9 @@ const geneTookKitMostCommonlyUsed = gql(`
                 classes {
                     name
                 }
+                tagUses {
+                    name
+                }
             }
         }
 
@@ -26,6 +29,7 @@ const geneTookKitMostCommonlyUsed = gql(`
                 id
                 paperCount
                 stocksCount
+                pubCount
                 symbol
                 transgenicProductClasses {
                     transgenicProductClass
@@ -38,6 +42,9 @@ const geneTookKitMostCommonlyUsed = gql(`
                 }
                 taggedWith {
                     symbol
+                }
+                tagUses {
+                    name
                 }
             }
         }

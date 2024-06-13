@@ -54,6 +54,7 @@ export type GeneToolKitTableCategory<
             name: string;
             interactiveTable: Table;
             graphQLResultKey: ResultKey; // Which sub query to use
+            blinds: string[], // The blind keys which need to be opened to view table
             subCategories: {
                 name: string;
                 filters: {

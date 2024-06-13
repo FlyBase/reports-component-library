@@ -15,10 +15,11 @@ type AlleleToCompare = {
 }
 
 const getMostCommonlyUsed = (alleles: AlleleToCompare[]): MostCommonlyUsedAllele[] => {
+
     const allelesSorted = [...alleles].sort((a, b) => {
-        if(a.paperCount !== b.paperCount) return a.paperCount - b.paperCount;
-        if(a.stocksCount !== b.stocksCount) return a.stocksCount - b.stocksCount;
-        return a.pubCount - b.pubCount;
+        if(a.paperCount !== b.paperCount) return b.paperCount - a.paperCount;
+        if(a.stocksCount !== b.stocksCount) return b.stocksCount - a.stocksCount;
+        return b.pubCount - a.pubCount;
     });
 
     return allelesSorted.filter((allele, index) => {
@@ -61,11 +62,10 @@ const useGeneToolKitMostCommonlyUsedQuery = () => {
     const [config, updateConfig] = useReducer(configReducer, geneToolKitMostCommonlyUsedConfig);
 
     const { loading, error, data } = useQuery(geneTookKitMostCommonlyUsed, {
-        variables: { geneId: fb_rc }
+        variables: { geneId: FBgn }
     });
 
     useEffect(() => {
-        console.log(data, config)
         if(error) return;
 
         if(!loading && data) {

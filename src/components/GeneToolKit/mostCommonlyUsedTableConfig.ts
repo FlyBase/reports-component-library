@@ -8,6 +8,7 @@ import {
 } from "../../api/graphql/types/interactiveTableDefinitions/geneTransgenicConstructAlleles";
 
 const hasMatches = (terms: string[], searchText: string | string[]): boolean => {
+    if(terms.length === 0) return false;
     if(typeof searchText === "string") searchText = [searchText];
 
     for(let searchIndex = 0; searchIndex < searchText.length; searchIndex++) {
@@ -26,6 +27,7 @@ const geneToolKitMostCommonlyUsedConfig: GeneToolKitTableCategory[] = [
         name: "Classical and Insertion Alleles",
         interactiveTable: InteractiveTable.GeneClassicalInsertionAlleles,
         graphQLResultKey: "classicalAndInsertionsAlleles",
+        blinds: ["alleles_main_sub", "classical_insertion_sub"],
         subCategories: [
             {
                 name: "Loss of function allele",
@@ -52,12 +54,12 @@ const geneToolKitMostCommonlyUsedConfig: GeneToolKitTableCategory[] = [
             },{
                 name: "Fluorescently-tagged allele",
                 filters: {
-                    [GeneClassicalInsertionAllelesColumn.AlleleClass]: ["fluorescent"],
+                    [GeneClassicalInsertionAllelesColumn.TagUses]: ["fluorescent"],
                 },
                 graphQLFilter: result => [...result!].map(gene => ({
                     ...gene,
                     alleles: gene.alleles.filter(
-                        allele => hasMatches(allele.classes.map(alleleClass => alleleClass.name!), "fluorescent")
+                        allele => hasMatches(allele.tagUses!.map(use => use!.name!), "fluorescent")
                     )
                 }))
             },
@@ -67,6 +69,7 @@ const geneToolKitMostCommonlyUsedConfig: GeneToolKitTableCategory[] = [
         name: "Transgenic Constructs",
         interactiveTable: InteractiveTable.GeneTransgenicConstructAlleles,
         graphQLResultKey: "transgenicConstructs",
+        blinds: ["alleles_main_sub", "transgenic_constructs_sub"],
         subCategories: [
             {
                 name: "UAS RNAi",
@@ -95,18 +98,33 @@ const geneToolKitMostCommonlyUsedConfig: GeneToolKitTableCategory[] = [
                     )
                 }))
             },{
-                name: "Genomic rescue",
+                name: "Untagged genomic rescue",
                 filters: {
                     [GeneTransgenicConstructAllelesColumn.TransgenicProductClass]: ["genomic_DNA", "wild_type"],
-                    [GeneTransgenicConstructAllelesColumn.RegRegions]: [fb_rc],
-                    [GeneTransgenicConstructAllelesColumn.TaggedWith]: "",
+                    [GeneTransgenicConstructAllelesColumn.RegRegions]: [FBgnSymbol],
+                    [GeneTransgenicConstructAllelesColumn.TaggedWith]: [""],
                 },
                 graphQLFilter: result => [...result!].map(gene => ({
                     ...gene,
                     alleles: gene.alleles.filter(allele =>
                         hasMatches(allele.transgenicProductClasses.map(tpc => tpc.transgenicProductClass!), ["genomic_DNA", "wild_type"]) &&
-                        hasMatches(allele.regRegions!.map(region => region!.symbol!), fb_rc) &&
+                        hasMatches(allele.regRegions!.map(region => region!.symbol!), FBgnSymbol) &&
                         allele.taggedWith?.length === 0
+                    )
+                }))
+            },{
+                name: "Fluorescently-tagged genomic rescue",
+                filters: {
+                    [GeneTransgenicConstructAllelesColumn.TransgenicProductClass]: ["genomic_DNA", "wild_type"],
+                    [GeneTransgenicConstructAllelesColumn.RegRegions]: [FBgnSymbol],
+                    [GeneTransgenicConstructAllelesColumn.TagUses]: ["fluorescent"],
+                },
+                graphQLFilter: result => [...result!].map(gene => ({
+                    ...gene,
+                    alleles: gene.alleles.filter(allele =>
+                        hasMatches(allele.transgenicProductClasses.map(tpc => tpc.transgenicProductClass!), ["genomic_DNA", "wild_type"]) &&
+                        hasMatches(allele.regRegions!.map(region => region!.symbol!), FBgnSymbol) &&
+                        hasMatches(allele.tagUses!.map(use => use!.name!), "fluorescent")
                     )
                 }))
             },

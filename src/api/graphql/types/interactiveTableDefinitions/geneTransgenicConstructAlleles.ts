@@ -3,12 +3,12 @@ export enum GeneTransgenicConstructAllelesColumn {
     Mutagens = "mutagens",
     KnownLesion = "knownLesion",
     Constructs = "constructs",
-    TransgenicProductClass = "transgenicProductClass",
+    TransgenicProductClass = "transgenicProductClasses",
     RegRegions = "regRegions",
     EncodedTools = "encodedTools",
     EncodedToolUses = "encodedToolUses",
     TaggedWith = "taggedWith",
-    TaggedUses = "taggedUses",
+    TagUses = "tagUses",
     StocksCount = "stocksCount",
     PubCount = "pubCount"
 }

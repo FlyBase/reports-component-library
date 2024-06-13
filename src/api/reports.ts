@@ -70,7 +70,7 @@ const getData = (ontology: string, aspect: string, id: string): Promise<RibbonDa
         let termsObj = data.resultset.result[0].ribbon // console.log(termsObj);
         for (let id = 0; id < slim_order.length; id++) {
             let termID = slim_order[id]
-            //console.log("getting data for "+termID);;
+
             ontologyData.push({
                 id: termID,
                 name: termsObj[termID].name,
@@ -88,7 +88,7 @@ const getData = (ontology: string, aspect: string, id: string): Promise<RibbonDa
                 }
             }
         }
-        // console.log(ontologyData);
+
         return ontologyData;
     });
 };

@@ -9,7 +9,7 @@ export enum GeneClassicalInsertionAllelesColumn {
     EncodedTools = "encodedTools",
     EncodedToolUses = "encodedToolUses",
     TaggedWith = "taggedWith",
-    TaggedUses = "taggedUses",
+    TagUses = "tagUses",
     StocksCount = "stocksCount",
     PubCount = "pubCount",
     AlsoCarries = "alsoCarries"
