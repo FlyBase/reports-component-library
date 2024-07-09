@@ -38,8 +38,9 @@ const ReportSection: React.FC<RibbonsSectionProps> = ({ sectionId, blindLocation
     }, []);
 
     useEffect(() => {
+        if(!collapsible) return;
         sectionIsOpen ? openSection() : closeSection();
-    }, [closeSection, openSection, sectionIsOpen]);
+    }, [closeSection, collapsible, openSection, sectionIsOpen]);
 
     const handleClick = () => collapsible && toggleBlind(sectionId);
 
