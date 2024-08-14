@@ -1,5 +1,5 @@
 import useSmartStorage from "./useSmartStorage";
-import {Table, TableState} from "@tanstack/react-table";
+import {TableState} from "@tanstack/react-table";
 import {useEffect, useState} from "react";
 
 const useInteractiveTableSettings = (tableId: string, defaultSettings: Partial<TableState> = {}): ReturnType<typeof useSmartStorage<TableState>> => {

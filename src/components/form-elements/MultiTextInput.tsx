@@ -1,6 +1,6 @@
 import '../../styles/multiTextInput.scss';
 import XIcon from "../icons/XIcon";
-import React, {useEffect, useId, useRef, useState} from "react";
+import React, {useRef} from "react";
 import PlusIcon from "../icons/PlusIcon";
 
 type MultiTextInputProps = {

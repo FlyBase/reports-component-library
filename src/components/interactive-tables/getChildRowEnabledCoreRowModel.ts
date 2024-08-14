@@ -3,20 +3,14 @@ import {
     Table,
     Row,
     createRow,
-    createCell,
     memo,
     getMemoOptions,
     CoreRow,
-    RowModel,
-    useReactTable, TableOptions, flexRender, getSortedRowModel, getPaginationRowModel, getFilteredRowModel
+    useReactTable,
+    TableOptions
 } from "@tanstack/react-table";
-import {DeepKeysMaxDepth, DeepKeysOfObjectArrayTypes, TypeByPath, TypeOrArrayType} from "./SplitSystemCombinationSearchTable";
-import {flattenBy} from "@tanstack/table-core/src/utils";
-import {Cell} from "@tanstack/table-core/src/types";
-import {getAllByPath, getByPath} from "../../helpers/getByPath";
-import {Tab} from "react-bootstrap";
-import * as React from "react";
-import {Renderable} from "@tanstack/react-table/src";
+import {DeepKeysMaxDepth, DeepKeysOfObjectArrayTypes, TypeByPath, TypeOrArrayType} from "../../types";
+import {getByPath} from "../../helpers/getByPath";
 
 export type ChildRowKeys<TData> = Extract<
     DeepKeysMaxDepth<TData>,
@@ -46,116 +40,6 @@ export interface ChildRowEnabledCoreRow<TData extends RowData> extends CoreRow<T
     getLeafChildRows: () => ChildRowEnabledRow<TData>[];
     rootChildPath?: ChildRowKeys<TData>;
 }
-
-export type ChildRowEnabledTableTypes<TData extends RowData> = TData | ChildRowType<TData>;
-
-// export const createChildRowEnabledRow = <TableType extends RowData, RowType extends RowData>(
-//     table: Table<TableType | ChildRowType<TableType>>,
-//     id: string,
-//     original: RowType,
-//     rowIndex: number,
-//     depth: number,
-//     subRows?: Row<RowType>[],
-//     parentId?: string
-// ): ChildRowEnabledRow<RowType> => {
-//     let row: ChildRowEnabledCoreRow<RowType> = {
-//         id,
-//         index: rowIndex,
-//         original,
-//         depth,
-//         parentId,
-//         _valuesCache: {},
-//         _uniqueValuesCache: {},
-//         getValue: columnId => {
-//             if (row._valuesCache.hasOwnProperty(columnId)) {
-//                 return row._valuesCache[columnId]
-//             }
-//
-//             const column = table.getColumn(columnId)
-//
-//             if (!column?.accessorFn) {
-//                 return undefined
-//             }
-//
-//             row._valuesCache[columnId] = column.accessorFn(
-//                 row.original as TData,
-//                 rowIndex
-//             )
-//
-//             return row._valuesCache[columnId] as any
-//         },
-//         getUniqueValues: columnId => {
-//             if (row._uniqueValuesCache.hasOwnProperty(columnId)) {
-//                 return row._uniqueValuesCache[columnId]
-//             }
-//
-//             const column = table.getColumn(columnId)
-//
-//             if (!column?.accessorFn) {
-//                 return undefined
-//             }
-//
-//             if (!column.columnDef.getUniqueValues) {
-//                 row._uniqueValuesCache[columnId] = [row.getValue(columnId)]
-//                 return row._uniqueValuesCache[columnId]
-//             }
-//
-//             row._uniqueValuesCache[columnId] = column.columnDef.getUniqueValues(
-//                 row.original as TData,
-//                 rowIndex
-//             )
-//
-//             return row._uniqueValuesCache[columnId] as any
-//         },
-//         renderValue: columnId =>
-//             row.getValue(columnId) ?? table.options.renderFallbackValue,
-//         subRows: subRows ?? [],
-//         getLeafRows: () => flattenBy(row.subRows, d => d.subRows),
-//         getParentRow: () =>
-//             row.parentId ? table.getRow(row.parentId, true) : undefined,
-//         getParentRows: () => {
-//             let parentRows: Row<TData>[] = []
-//             let currentRow = row
-//             while (true) {
-//                 const parentRow = currentRow.getParentRow()
-//                 if (!parentRow) break
-//                 parentRows.push(parentRow)
-//                 currentRow = parentRow
-//             }
-//             return parentRows.reverse()
-//         },
-//         getAllCells: memo(
-//             () => [table.getAllLeafColumns()],
-//             leafColumns => {
-//                 return leafColumns.map(column => {
-//                     return createCell(table, row as Row<TData>, column, column.id)
-//                 })
-//             },
-//             getMemoOptions(table.options, 'debugRows', 'getAllCells')
-//         ),
-//
-//         _getAllCellsByColumnId: memo(
-//             () => [row.getAllCells()],
-//             allCells => {
-//                 return allCells.reduce(
-//                     (acc, cell) => {
-//                         acc[cell.column.id] = cell
-//                         return acc
-//                     },
-//                     {} as Record<string, Cell<TData, unknown>>
-//                 )
-//             },
-//             getMemoOptions(table.options, 'debugRows', 'getAllCellsByColumnId')
-//         ),
-//     }
-//
-//     for (let i = 0; i < table._features.length; i++) {
-//         const feature = table._features[i]
-//         feature?.createRow?.(row as ChildRowEnabledRow<RowType> as Row<RowType>, table)
-//     }
-//
-//     return row as ChildRowEnabledCoreRow<RowType>
-// }
 
 export function getChildRowEnabledCoreRowModel<TData extends RowData, TableType extends RowData = TData | ChildRowType<TData>>(): (
     table: Table<TableType>
@@ -195,24 +79,19 @@ export function getChildRowEnabledCoreRowModel<TData extends RowData, TableType 
                     const rows = [] as ChildRowEnabledRow<TableType>[]
                     const childPath = (childPaths && childPaths.length > 0) ? childPaths[0] : undefined;
 
-
-
-
                     for (let i = 0; i < originalRows.length; i++) {
-                        // i === 0 && console.log(`ChildDepth-${childDepth}`, originalRows[0], childPath, childPaths, childPath?.length, childPaths?.slice(1).map(path => path.substring((childPath || "").length+1)))
                         // Make the row
                         let row = createRow(
-                            table, //table: Table<TData>
-                            table._getRowId(originalRows[i]!, i, parentRow), //id: string
-                            originalRows[i]!, //original: TData
-                            i, //rowIndex: number
-                            depth, //depth: number
-                            undefined, //subRows?: Row<TData>[]
-                            parentRow?.id //parentId?: string
+                            table,
+                            table._getRowId(originalRows[i]!, i, parentRow),
+                            originalRows[i]!,
+                            i,
+                            depth,
+                            undefined,
+                            parentRow?.id
                         ) as ChildRowEnabledRow<TableType>;
 
 
-                        // const originalChildRows: TypeByPath<SpecificRowType, ChildRowKeys<SpecificRowType>> = childPath ? getByPath(originalRows[i], childPath) : ([] as TypeByPath<SpecificRowType, ChildRowKeys<SpecificRowType>>);
                         let originalChildRows = [] as TypeByPath<SpecificRowType, ChildRowKeys<SpecificRowType>>;
                         if(childPath !== undefined)
                             originalChildRows = getByPath(originalRows[i], childPath);
@@ -221,27 +100,10 @@ export function getChildRowEnabledCoreRowModel<TData extends RowData, TableType 
                             throw new Error("Something has gone wrong. Somehow the type located by childPath is not an array. This error should never throw, but if it does, the typing for childPath must be incorrect.");
                         }
 
-                        /*
-                        * NOTE TO MONDAY SETH:
-                        *
-                        * Hope your weekend went well. You need to implement "childDepth" as an extension of CoreRow.
-                        * When you pass on the remaining keys, they will be full because of typing. (one.two.three cant be changed to two.three)
-                        * You can use the child depth to pop the leading keys off when getting child rows through originalChildRows
-                        * I.e. child depth of 1, pop 1 key off  (one.two.three => two.three)
-                        *      child depth of 2, pop 2 keys off (one.two.three => three)
-                        *
-                        * Do this for the least deep child path (childPaths[0])
-                        *
-                        * Don't try to type out the combos of keys for children (one.two.three | two.three | three).
-                        * I (you) tried that today (Friday) and
-                        * it won't work
-                        * */
-
                         const newChildPaths = (childPath && childPaths) ? childPaths.slice(1).map(path => path.substring(childPath.length+1)) : undefined;
 
                         const childRows = originalChildRows.length > 0 ? accessRows(originalChildRows, 0, childDepth + 1, row, parentRow, newChildPaths, `${rootChildPath ? rootChildPath+"." : ""}${childPath}` as ChildRowKeys<TableType>) as ChildRowEnabledRow<ChildRowType<TableType>>[] : [];
 
-                        // console.log("NEW MODEL", childPath, originalRows[i], childPaths);
 
                         row = {
                             ...row,
@@ -335,44 +197,6 @@ export function getChildRowEnabledCoreRowModel<TData extends RowData, TableType 
                 table._autoResetPageIndex()
             )
         )
-}
-
-export const childEnabledFlexRender = <TProps extends object>(
-    Comp: Renderable<TProps> | ((props: TProps) => (React.ReactNode | JSX.Element)[]),
-    props: TProps
-): React.ReactNode | JSX.Element | (React.ReactNode | JSX.Element)[] => {
-    if(typeof Comp === "function" && !isReactComponent<TProps>(Comp)) {
-        return Comp(props);
-    } else {
-        return flexRender(Comp, props);
-    }
-}
-
-function isReactComponent<TProps>(
-    component: unknown
-): component is React.ComponentType<TProps> {
-    return (
-        isClassComponent(component) ||
-        isExoticComponent(component)
-    )
-}
-
-function isClassComponent(component: any) {
-    return (
-        typeof component === 'function' &&
-        (() => {
-            const proto = Object.getPrototypeOf(component)
-            return proto.prototype && proto.prototype.isReactComponent
-        })()
-    )
-}
-
-function isExoticComponent(component: any) {
-    return (
-        typeof component === 'object' &&
-        typeof component.$$typeof === 'symbol' &&
-        ['react.memo', 'react.forward_ref'].includes(component.$$typeof.description)
-    )
 }
 
 export const useChildRowEnabledReactTable = <TData extends RowData>(options: Omit<TableOptions<TData>, "getCoreRowModel">) => {

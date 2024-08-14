@@ -1,4 +1,4 @@
-import React, {CSSProperties, ReactNode, useEffect, useState} from 'react';
+import React, {CSSProperties, ReactNode} from 'react';
 import {
     Cell,
     Column,
@@ -6,7 +6,8 @@ import {
     flexRender,
     getFilteredRowModel,
     getPaginationRowModel,
-    getSortedRowModel, Header
+    getSortedRowModel,
+    Header
 } from "@tanstack/react-table";
 import {
     ChildRowEnabledRow,
@@ -33,8 +34,7 @@ import {
     arrayMove,
     SortableContext,
     horizontalListSortingStrategy,
-} from '@dnd-kit/sortable'
-import {tab} from "@testing-library/user-event/dist/tab";
+} from '@dnd-kit/sortable';
 
 
 type InteractiveTableProps<DataType> = {
@@ -43,7 +43,7 @@ type InteractiveTableProps<DataType> = {
     data: DataType[],
 };
 
-type PillFilterValue = {
+type MultiTextInputFilterValue = {
     pills: string[],
     inputText: string,
 }
@@ -131,7 +131,7 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
         getFilteredRowModel: getFilteredRowModel(),
         defaultColumn: {
             filterFn: (row, columnId, filterValue) => {
-                filterValue = filterValue as PillFilterValue;
+                filterValue = filterValue as MultiTextInputFilterValue;
                 const values = [...filterValue.pills, ...(filterValue.inputText === "" ? [] : [filterValue.inputText])];
 
                 for(let i = 0; i < values.length; i++) {
@@ -144,7 +144,7 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
         }
     });
 
-    const [state, updateState, deleteState] = useInteractiveTableSettings(id, {
+    const [state, updateState] = useInteractiveTableSettings(id, {
         columnOrder: table.getAllLeafColumns().map(c=>c.id)
     });
 
@@ -165,8 +165,6 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
     )
 
     if( JSON.stringify(state) === "{}") return null;
-
-    // console.log(table.getAllColumns());
 
     // reorder columns after drag & drop
     function handleDragEnd(event: DragEndEvent) {
@@ -247,8 +245,8 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
                         <th key={`filter-${header.id}`}>
                             <MultiTextInput id={header.column.id}
                                             placeholder="Filter..."
-                                            defaultPills={header.column.getIsFiltered() ? (header.column.getFilterValue() as PillFilterValue).pills : []}
-                                            defaultInputText={header.column.getIsFiltered() ? (header.column.getFilterValue() as PillFilterValue).inputText : ""}
+                                            defaultPills={header.column.getIsFiltered() ? (header.column.getFilterValue() as MultiTextInputFilterValue).pills : []}
+                                            defaultInputText={header.column.getIsFiltered() ? (header.column.getFilterValue() as MultiTextInputFilterValue).inputText : ""}
                                             onValueChange={(pills, inputText) => {
                                                 header.column.setFilterValue({
                                                     pills,
@@ -275,7 +273,6 @@ const InteractiveTable = <TData, >({id, columns, data}: InteractiveTableProps<TD
                                     )}
                                 </React.Fragment>
                             ));
-                            // const parentCells = rowToRender.getVisibleCells().map(cell => <DragAlongCell cell={cell} key={cell.id} />);
                             if (rowToRender.childRows.length === 0)
                                 return [parentCells];
                             const childCells: any[][] = rowToRender.childRows.map(childRow => getCellRenders(childRow as ChildRowEnabledRow<TData>)).reduce((p, c) => c.concat(p));

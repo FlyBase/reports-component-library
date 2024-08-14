@@ -112,7 +112,6 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
     }, [setValue, rootPath, localStorageKey, updateValue]);
 
     const updateStorage = (path: string, newValue: any) => {
-        console.log("UPDATING");
         let newObject = JSON.parse(JSON.stringify(value));
 
         //Access the value 1 key away from what we want to update. This prevents trying to directly update the value

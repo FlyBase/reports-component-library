@@ -1,11 +1,9 @@
 import {useLazyQuery, useQuery} from "@apollo/client";
 import searchExpressionTools from "../api/graphql/searchExpressionTools";
 import {
-    Allele,
-    FindToolsQuery,
     FullAlleleFragment,
     GetSplitSystemCombinationsQuery,
-    QuerySearchExpressionToolsArgs, SplitSystemCombination
+    QuerySearchExpressionToolsArgs
 } from "../__generated__/graphql";
 import getAlleles from "../api/graphql/getAlleles";
 import getSplitSystemCombinations from "../api/graphql/getSplitSystemCombinations";
@@ -47,14 +45,17 @@ const useGAL4Search = (variables: QuerySearchExpressionToolsArgs, mode: "ssc" | 
         error: expressionTermsError,
         data: expressionTermsAlleles
     } = useQuery(searchExpressionTools, {variables});
+
     const [getAlleleSearch, {
         loading: alleleSearchLoading,
         error: alleleSearchError
     }] = useLazyQuery(getAlleles);
+
     const [getSSCSearch, {
         loading: sscSearchLoading,
         error: sscSearchError
     }] = useLazyQuery(getSplitSystemCombinations);
+
     const [alleleSearchResults, setAlleleSearchResults] = useState<AlleleWithExpressionTerms[] | null>(null);
     const [sscSearchResults, setSSCSearchResults] = useState<SSCWithExpressionTerms[] | null>(null);
 
