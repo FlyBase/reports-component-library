@@ -1,6 +1,6 @@
 import React, {useId} from "react";
 import LoadingIndicator from "../icons/LoadingIndicator";
-import "../../styles/geneToolKitMostCommonlyUsedTable.scss";
+import styles from "../../styles/geneToolKitMostCommonlyUsedTable.module.scss";
 import useGeneToolKitMostCommonlyUsedQuery from "./useGeneToolKitMostCommonlyUsedQuery";
 import useSmartStorage from "../../hooks/useSmartStorage";
 import useBlinds from "../../hooks/useBlinds";
@@ -14,7 +14,7 @@ const GeneToolKitMostCommonlyUsedTable: React.FC = () => {
     const [, updateStorage] = useSmartStorage(`simpleStorage.FlyBase_session.reports.FBgn.interactiveTableFilters`);
 
     return (
-        <table>
+        <table className={styles.geneToolKitMostCommonlyUsedTable}>
             <thead>
                 <tr>
                     <th>Category</th>

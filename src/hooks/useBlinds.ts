@@ -3,6 +3,10 @@ import $ from "jquery";
 
 const DURATION = 250; //(in milliseconds) Used by jQuery for hide animation.
 
+type BlindsSettings = {
+    [key: string]: true;
+}
+
 /**
  * A wrapper around useSmartStorage, specifically for FlyBase blinds.
  *
@@ -19,7 +23,7 @@ const DURATION = 250; //(in milliseconds) Used by jQuery for hide animation.
  * @beta
  */
 const useBlinds = (section: string) => {
-    const [blinds, updateBlinds, deleteBlinds] = useSmartStorage(`simpleStorage.FlyBase_session.${section}.blinds.${fb_rc}`);
+    const [blinds, updateBlinds, deleteBlinds] = useSmartStorage<BlindsSettings>(`simpleStorage.FlyBase_session.${section}.blinds.${fb_rc}`);
 
     const toggleBlind = (blind: string) => isBlindOpen(blind) ? closeBlind(blind) : openBlind(blind);
     const closeBlind = (blind: string) => {

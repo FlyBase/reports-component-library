@@ -1,3 +1,6 @@
+import {DeepKeysMaxDepth, TypeByPath} from "../components/interactive-tables/SplitSystemCombinationSearchTable";
+import {DeepKeys} from "@tanstack/table-core/src/utils";
+
 /**
  * Returns the value/reference within an item based on a given path
  *
@@ -16,14 +19,61 @@
  *
  * @beta
  */
-const getByPath = (item: any, path: string, createUndefinedPaths = false) => {
+// const getByPath = (item: any, path: string, createUndefinedPaths = false) => {
+//     const keys = path.split(".");
+//
+//     let pathObject = item;
+//
+//     keys.forEach((key, index) => {
+//         if(key === '') return;
+//         if(typeof pathObject !== "object") throw new Error(`Key "${keys[index-1]}" in path "${path}" is not an object. Property "${key}" cannot be read.`);
+//
+//         /**
+//          * TODO: support n-D arrays (i.e. foo[0][1][2]...)
+//          *  match all indices with (?<=(.*))\[(\d*)] (results in capture group 2)
+//          *  maybe can do conditional first capture to avoid capturing "keys" like
+//          *  foo, foo[0]. foo[0][1]. (make first capture group at start of line, then OR it with a
+//          *  non-capture group of the same nature. Psuedoregex: (?<=(^.*)|(?:.*))\d[(\d+)]
+//          *  alternatively, capture all indices, and regex again to match each individually
+//          */
+//         const match = /(.*)\[(\d*)]$/.exec(key);
+//
+//         if(match) {
+//             const [, arrayKey, arrayIndex] = match;
+//             if( createUndefinedPaths && arrayKey !== "" && pathObject[arrayKey] === undefined) {
+//                 pathObject[arrayKey] = [];
+//             }
+//             if(arrayKey !== "") {
+//                 pathObject = pathObject[arrayKey];
+//             }
+//             if(arrayIndex) {
+//                 if(createUndefinedPaths && pathObject[arrayIndex] === undefined) {
+//                     pathObject[arrayIndex] = {};
+//                 }
+//                 pathObject = pathObject[arrayIndex];
+//             } else {
+//                 pathObject.push({});
+//                 pathObject = pathObject[pathObject.length - 1];
+//             }
+//         } else {
+//             if(createUndefinedPaths && pathObject[key] === undefined) {
+//                 pathObject[key] = {};
+//             }
+//             pathObject = pathObject[key];
+//         }
+//     });
+//
+//     return pathObject;
+// };
+
+export const getByPath = <Type extends any, Path extends DeepKeysMaxDepth<Type, MaxDepth>, MaxDepth extends number = 10>(item: Type, path: Path, createUndefinedPaths = false): TypeByPath<Type, Path> => {
     const keys = path.split(".");
 
-    let pathObject = item;
+    let pathObject: any = item;
 
     keys.forEach((key, index) => {
         if(key === '') return;
-        if(typeof pathObject !== "object") throw new Error(`Key "${keys[index-1]}" in path "${path}" is not an object. Property "${key}" cannot be read.`);
+        if(typeof pathObject !== "object" || pathObject === null) throw new Error(`Key "${keys[index-1]}" in path "${path}" is not an object. Property "${key}" cannot be read.`);
 
         /**
          * TODO: support n-D arrays (i.e. foo[0][1][2]...)
@@ -62,5 +112,41 @@ const getByPath = (item: any, path: string, createUndefinedPaths = false) => {
 
     return pathObject;
 };
+
+export const getAllByPath =
+    <
+        Type extends any,
+        MaxDepth extends number = 10,
+        Path extends DeepKeysMaxDepth<Type, MaxDepth> = DeepKeysMaxDepth<Type, MaxDepth>,
+        TargetType = TypeByPath<Type, Path>
+    >(item: Type, path: Path): TargetType | TargetType[] => {
+        if(path === "") throw new Error("Path must be a deep key of the item being searched");
+
+        const firstPeriodIndex = path.indexOf(".")
+
+        let key = path as keyof Type;
+        let remainingKeys = "";
+        if(firstPeriodIndex !== -1) {
+            key = path.substring(0, firstPeriodIndex) as keyof Type;
+            remainingKeys = path.substring(firstPeriodIndex+1)
+        }
+
+        if(Array.isArray(item)) {
+            return item.map(subItem => getAllByPath<typeof subItem, MaxDepth, Path>(subItem, path) as TargetType | TargetType[]).flat() as TargetType[];
+        }
+
+        if(item === null || typeof item !== "object") throw new Error(`Key "${String(key)}" in path "${path}" is not an object or array. Property "${String(key)}" cannot be read.`);
+
+        const nextItem = item[key] as TargetType;
+
+        if(remainingKeys === "") {
+            return nextItem;
+        }
+
+        return getAllByPath(nextItem, remainingKeys as DeepKeysMaxDepth<typeof nextItem>) as TargetType | TargetType[];
+
+    }
+
+
 
 export default getByPath;

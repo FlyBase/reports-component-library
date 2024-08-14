@@ -5,7 +5,7 @@ import getByPath from "../helpers/getByPath";
 const initializeReducer = (rootPath: string) => {
     const localStorageKey = rootPath.substring(0, rootPath.indexOf(".")) || rootPath;
 
-    let fullValue = window.localStorage.getItem(localStorageKey);
+    let fullValue: any = window.localStorage.getItem(localStorageKey);
     fullValue = fullValue === null ? {} : JSON.parse(fullValue);
 
     const childValue = getByPath(fullValue, rootPath.substring(localStorageKey.length), true);
@@ -24,12 +24,12 @@ const reducer = (state: any, action: { rootPath: string, newValue: any, replaceA
 
     const localStorageKey = action.rootPath.substring(0, action.rootPath.indexOf(".")) || action.rootPath;
 
-    let fullValue = window.localStorage.getItem(localStorageKey);
+    let fullValue: any = window.localStorage.getItem(localStorageKey);
     fullValue = fullValue === null ? {} : JSON.parse(fullValue);
 
     const parentPath = action.rootPath.substring(localStorageKey.length + 1, action.rootPath.lastIndexOf(".")) || action.rootPath;
     const keyToUpdate = action.rootPath.substring(action.rootPath.lastIndexOf(".") + 1);
-    let childPathObject = getByPath(fullValue, parentPath);
+    let childPathObject: any = getByPath(fullValue, parentPath);
 
     if(action.replaceAll) { // replaces all the localStorage value, not just at a subpath
         return parentPath === keyToUpdate ? childPathObject : childPathObject[keyToUpdate];
@@ -68,7 +68,7 @@ const reducer = (state: any, action: { rootPath: string, newValue: any, replaceA
  *
  * @beta
  */
-const useSmartStorage = (rootPath: string): [any, (path: string, newValue: any) => void, (path: string) => void] => {
+const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string, newValue: any) => void, (path: string) => void] => {
     //TODO: support cross tab updates as an option
     const [value, setValue] = useReducer(reducer, rootPath, initializeReducer);
 
@@ -79,11 +79,11 @@ const useSmartStorage = (rootPath: string): [any, (path: string, newValue: any) 
     //TODO: add logic to prevent this when triggers because a different hook changes localStorage, firing the event
     //listener below, and thus this useEffect?
     useEffect(() => {
-        let fullValue = window.localStorage.getItem(localStorageKey);
+        let fullValue: any = window.localStorage.getItem(localStorageKey);
         fullValue = fullValue === null ? {} : JSON.parse(fullValue);
         const parentPath = rootPath.substring(localStorageKey.length + 1, rootPath.lastIndexOf(".")) || rootPath;
         const keyToUpdate = rootPath.substring(rootPath.lastIndexOf(".") + 1);
-        let childPathObject = getByPath(fullValue, parentPath);
+        let childPathObject: any = getByPath(fullValue, parentPath);
         childPathObject[keyToUpdate] = value;
         window.localStorage.setItem(localStorageKey, JSON.stringify(fullValue));
         window.dispatchEvent(new CustomEvent('localStorage'));
@@ -112,6 +112,7 @@ const useSmartStorage = (rootPath: string): [any, (path: string, newValue: any) 
     }, [setValue, rootPath, localStorageKey, updateValue]);
 
     const updateStorage = (path: string, newValue: any) => {
+        console.log("UPDATING");
         let newObject = JSON.parse(JSON.stringify(value));
 
         //Access the value 1 key away from what we want to update. This prevents trying to directly update the value

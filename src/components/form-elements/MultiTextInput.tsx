@@ -4,84 +4,83 @@ import React, {useEffect, useId, useRef, useState} from "react";
 import PlusIcon from "../icons/PlusIcon";
 
 type MultiTextInputProps = {
-    defaultList?: string[],
-    onChange?: (items: string[]) => void,
+    defaultPills?: string[],
+    defaultInputText?: string,
+    onValueChange?: (pills: string[], inputText: string) => void,
     placeholder?: string
+    id: string,
+    singleItemOnly?: boolean
 };
 
-const MultiTextInput: React.FC<MultiTextInputProps> = ({ defaultList = [], onChange, placeholder = "Placeholder" }) => {
-
-    const id = useId();
-    const [items, setItems] = useState(defaultList);
-    const [newItem, setNewItem] = useState("");
+const MultiTextInput: React.FC<MultiTextInputProps> = ({
+    defaultPills = [],
+    defaultInputText = '',
+    onValueChange,
+    placeholder = 'Placeholder',
+    id,
+    singleItemOnly = false,
+}) => {
     const newItemInputRef = useRef<HTMLInputElement | null>(null);
 
-    useEffect(() => {
-        if(!onChange) return;
-
-        let fullList = [...items];
-        if(newItem !== "") {
-            fullList.push(newItem);
-        }
-
-        onChange(fullList);
-
-    }, [items, newItem, onChange]);
-
     const handleAddItem = () => {
-        if(newItem === "") return;
+        if (defaultInputText === '') return;
 
-        setItems([...items, newItem]);
-        setNewItem("");
+        const newPills = [...defaultPills, defaultInputText];
+
+        onValueChange && onValueChange(newPills, '');
 
         newItemInputRef.current?.focus();
     };
 
     const handleDeleteItem = (index: number) => {
-        if(!items[index]) {
+        if (defaultPills[index] === undefined) {
             throw new Error(`No items exist for index ${index}.`);
         }
 
-        const newItems = [...items];
-        newItems.splice(index, 1);
+        const newPills = [...defaultPills];
+        newPills.splice(index, 1);
 
-        setItems(newItems);
-    }
+        onValueChange && onValueChange(newPills, defaultInputText);
+    };
 
     return (
-        <div className="multi-text-input">
-            {
-                items.length > 0 &&
+        <div className={`multi-text-input ${singleItemOnly ? 'single-item' : ''}`}>
+            {defaultPills.length > 0 && (
                 <ul className="multi-text-input-list">
-                    {
-                        items.map((item, index) => (
-                            <li key={`multi-text-input-item-${item}-${index}-${id}`}
-                                onClick={() => handleDeleteItem(index)}>
-                                <span>{item}</span>
-                                <XIcon />
-                            </li>
-                        ))
-                    }
-
+                    {defaultPills.map((item, index) => (
+                        <li
+                            key={`multi-text-input-item-${item}-${index}-${id}`}
+                            onClick={() => handleDeleteItem(index)}
+                            onKeyDown={(e) => e.key === "Enter" && handleDeleteItem(index)}
+                        >
+                            <span>{item}</span>
+                            <XIcon/>
+                        </li>
+                    ))}
                 </ul>
-            }
-            <form className="multi-text-input-add-new-item"
-                  onSubmit={e => {
-                      e.preventDefault();
-                      handleAddItem();
-                  }}
+            )}
+            <form
+                className="multi-text-input-add-new-item"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    if (!singleItemOnly) handleAddItem();
+                }}
             >
-                <input type="text"
-                       placeholder={placeholder}
-                       value={newItem}
-                       onChange={e => setNewItem(e.target.value)}
-                       ref={newItemInputRef}
+                <input
+                    type="text"
+                    placeholder={placeholder}
+                    value={defaultInputText}
+                    onChange={(e) => {
+                        e.preventDefault();
+                        onValueChange && onValueChange(defaultPills, e.target.value);
+                    }}
+                    ref={newItemInputRef}
                 />
-                <button className="add-new-icon-wrapper"
-                        type="submit"
-                >
-                    <PlusIcon />
-                </button>
+                {!singleItemOnly && (
+                    <button className="add-new-icon-wrapper" type="submit">
+                        <PlusIcon/>
+                    </button>
+                )}
             </form>
         </div>
     );

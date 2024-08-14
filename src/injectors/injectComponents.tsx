@@ -1,10 +1,14 @@
 import {JSXElementConstructor, ReactElement} from "react";
 import ReactDOM from 'react-dom/client';
 import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+import {createFragmentRegistry} from "@apollo/client/cache";
+import FullAllele from "../api/graphql/fragments/fullAllele";
 
 const client = new ApolloClient({
     uri: "/graphql",
-    cache: new InMemoryCache()
+    cache: new InMemoryCache({
+        fragments: createFragmentRegistry(FullAllele),
+    })
 });
 
 interface Injection {

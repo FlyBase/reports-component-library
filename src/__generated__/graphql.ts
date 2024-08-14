@@ -47,6 +47,14 @@ export type Allele = Node & {
   /** Reads and enables pagination through a set of `Construct`. */
   constructs: Array<Construct>;
   /** Reads and enables pagination through a set of `Construct`. */
+  constructsByToolAlleleIdAndConstructId: AlleleConstructsByToolAlleleIdAndConstructIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Construct`. */
+  constructsByToolAlleleIdAndConstructIdList: Array<Construct>;
+  /** Reads and enables pagination through a set of `Construct`. */
+  constructsByToolUseAlleleIdAndConstructId: AlleleConstructsByToolUseAlleleIdAndConstructIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Construct`. */
+  constructsByToolUseAlleleIdAndConstructIdList: Array<Construct>;
+  /** Reads and enables pagination through a set of `Construct`. */
   constructsConnection: ConstructsConnection;
   encodedToolUses?: Maybe<Array<Maybe<ToolUse>>>;
   encodedTools?: Maybe<Array<Maybe<Tool>>>;
@@ -54,11 +62,19 @@ export type Allele = Node & {
   gene?: Maybe<Gene>;
   geneId?: Maybe<Scalars['Int']['output']>;
   geneIsRegulatoryRegion?: Maybe<Scalars['Boolean']['output']>;
+  /** Reads and enables pagination through a set of `Gene`. */
+  genesByInsertionAlleleIdAndGeneId: AlleleGenesByInsertionAlleleIdAndGeneIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Gene`. */
+  genesByInsertionAlleleIdAndGeneIdList: Array<Gene>;
   hasImage?: Maybe<Scalars['Boolean']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   insertedElementTypes?: Maybe<Array<Maybe<ToolUse>>>;
   /** Reads and enables pagination through a set of `Insertion`. */
   insertions: Array<Insertion>;
+  /** Reads and enables pagination through a set of `Insertion`. */
+  insertionsByConstructAlleleIdAndInsertionId: AlleleInsertionsByConstructAlleleIdAndInsertionIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Insertion`. */
+  insertionsByConstructAlleleIdAndInsertionIdList: Array<Insertion>;
   /** Reads and enables pagination through a set of `Insertion`. */
   insertionsConnection: InsertionsConnection;
   isAlleleof?: Maybe<Scalars['Boolean']['output']>;
@@ -73,6 +89,14 @@ export type Allele = Node & {
   propagateTransgenicUses?: Maybe<Scalars['Boolean']['output']>;
   pubCount?: Maybe<Scalars['BigInt']['output']>;
   regRegions?: Maybe<Array<Maybe<Tool>>>;
+  /** Reads and enables pagination through a set of `SplitSystemCombinationComponentAllele`. */
+  splitSystemCombinationComponentAlleles: Array<SplitSystemCombinationComponentAllele>;
+  /** Reads and enables pagination through a set of `SplitSystemCombinationComponentAllele`. */
+  splitSystemCombinationComponentAllelesConnection: SplitSystemCombinationComponentAllelesConnection;
+  /** Reads and enables pagination through a set of `SplitSystemCombination`. */
+  splitSystemCombinationsBySplitSystemCombinationComponentAlleleAlleleIdAndSplitSystemCombinationId: AlleleSplitSystemCombinationsBySplitSystemCombinationComponentAlleleAlleleIdAndSplitSystemCombinationIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `SplitSystemCombination`. */
+  splitSystemCombinationsBySplitSystemCombinationComponentAlleleAlleleIdAndSplitSystemCombinationIdList: Array<SplitSystemCombination>;
   /** Reads and enables pagination through a set of `AlleleStock`. */
   stocks: Array<AlleleStock>;
   stocksCount?: Maybe<Scalars['BigInt']['output']>;
@@ -85,6 +109,10 @@ export type Allele = Node & {
   toolUsesConnection: ToolUsesConnection;
   /** Reads and enables pagination through a set of `Tool`. */
   tools: Array<Tool>;
+  /** Reads and enables pagination through a set of `Tool`. */
+  toolsByToolUseAlleleIdAndToolId: AlleleToolsByToolUseAlleleIdAndToolIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Tool`. */
+  toolsByToolUseAlleleIdAndToolIdList: Array<Tool>;
   /** Reads and enables pagination through a set of `Tool`. */
   toolsConnection: ToolsConnection;
   /** Reads and enables pagination through a set of `AlleleTransgenicProductClass`. */
@@ -152,6 +180,44 @@ export type AlleleConstructsArgs = {
 };
 
 
+export type AlleleConstructsByToolAlleleIdAndConstructIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ConstructCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ConstructsOrderBy>>;
+};
+
+
+export type AlleleConstructsByToolAlleleIdAndConstructIdListArgs = {
+  condition?: InputMaybe<ConstructCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ConstructsOrderBy>>;
+};
+
+
+export type AlleleConstructsByToolUseAlleleIdAndConstructIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ConstructCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ConstructsOrderBy>>;
+};
+
+
+export type AlleleConstructsByToolUseAlleleIdAndConstructIdListArgs = {
+  condition?: InputMaybe<ConstructCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ConstructsOrderBy>>;
+};
+
+
 export type AlleleConstructsConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -163,7 +229,45 @@ export type AlleleConstructsConnectionArgs = {
 };
 
 
+export type AlleleGenesByInsertionAlleleIdAndGeneIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<GeneCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GenesOrderBy>>;
+};
+
+
+export type AlleleGenesByInsertionAlleleIdAndGeneIdListArgs = {
+  condition?: InputMaybe<GeneCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<GenesOrderBy>>;
+};
+
+
 export type AlleleInsertionsArgs = {
+  condition?: InputMaybe<InsertionCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<InsertionsOrderBy>>;
+};
+
+
+export type AlleleInsertionsByConstructAlleleIdAndInsertionIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<InsertionCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<InsertionsOrderBy>>;
+};
+
+
+export type AlleleInsertionsByConstructAlleleIdAndInsertionIdListArgs = {
   condition?: InputMaybe<InsertionCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -187,6 +291,44 @@ export type AlleleMutagensArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<AlleleMutagensOrderBy>>;
+};
+
+
+export type AlleleSplitSystemCombinationComponentAllelesArgs = {
+  condition?: InputMaybe<SplitSystemCombinationComponentAlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SplitSystemCombinationComponentAllelesOrderBy>>;
+};
+
+
+export type AlleleSplitSystemCombinationComponentAllelesConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<SplitSystemCombinationComponentAlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SplitSystemCombinationComponentAllelesOrderBy>>;
+};
+
+
+export type AlleleSplitSystemCombinationsBySplitSystemCombinationComponentAlleleAlleleIdAndSplitSystemCombinationIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<SplitSystemCombinationCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SplitSystemCombinationsOrderBy>>;
+};
+
+
+export type AlleleSplitSystemCombinationsBySplitSystemCombinationComponentAlleleAlleleIdAndSplitSystemCombinationIdListArgs = {
+  condition?: InputMaybe<SplitSystemCombinationCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SplitSystemCombinationsOrderBy>>;
 };
 
 
@@ -218,6 +360,25 @@ export type AlleleToolUsesConnectionArgs = {
 
 
 export type AlleleToolsArgs = {
+  condition?: InputMaybe<ToolCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolsOrderBy>>;
+};
+
+
+export type AlleleToolsByToolUseAlleleIdAndToolIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ToolCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolsOrderBy>>;
+};
+
+
+export type AlleleToolsByToolUseAlleleIdAndToolIdListArgs = {
   condition?: InputMaybe<ToolCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -337,6 +498,100 @@ export type AlleleCondition = {
   symbol?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** A connection to a list of `Construct` values, with data from `Tool`. */
+export type AlleleConstructsByToolAlleleIdAndConstructIdManyToManyConnection = {
+  __typename?: 'AlleleConstructsByToolAlleleIdAndConstructIdManyToManyConnection';
+  /** A list of edges which contains the `Construct`, info from the `Tool`, and the cursor to aid in pagination. */
+  edges: Array<AlleleConstructsByToolAlleleIdAndConstructIdManyToManyEdge>;
+  /** A list of `Construct` objects. */
+  nodes: Array<Construct>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Construct` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Construct` edge in the connection, with data from `Tool`. */
+export type AlleleConstructsByToolAlleleIdAndConstructIdManyToManyEdge = {
+  __typename?: 'AlleleConstructsByToolAlleleIdAndConstructIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Construct` at the end of the edge. */
+  node: Construct;
+  /** Reads and enables pagination through a set of `Tool`. */
+  tools: Array<Tool>;
+  /** Reads and enables pagination through a set of `Tool`. */
+  toolsConnection: ToolsConnection;
+};
+
+
+/** A `Construct` edge in the connection, with data from `Tool`. */
+export type AlleleConstructsByToolAlleleIdAndConstructIdManyToManyEdgeToolsArgs = {
+  condition?: InputMaybe<ToolCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolsOrderBy>>;
+};
+
+
+/** A `Construct` edge in the connection, with data from `Tool`. */
+export type AlleleConstructsByToolAlleleIdAndConstructIdManyToManyEdgeToolsConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ToolCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolsOrderBy>>;
+};
+
+/** A connection to a list of `Construct` values, with data from `ToolUse`. */
+export type AlleleConstructsByToolUseAlleleIdAndConstructIdManyToManyConnection = {
+  __typename?: 'AlleleConstructsByToolUseAlleleIdAndConstructIdManyToManyConnection';
+  /** A list of edges which contains the `Construct`, info from the `ToolUse`, and the cursor to aid in pagination. */
+  edges: Array<AlleleConstructsByToolUseAlleleIdAndConstructIdManyToManyEdge>;
+  /** A list of `Construct` objects. */
+  nodes: Array<Construct>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Construct` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Construct` edge in the connection, with data from `ToolUse`. */
+export type AlleleConstructsByToolUseAlleleIdAndConstructIdManyToManyEdge = {
+  __typename?: 'AlleleConstructsByToolUseAlleleIdAndConstructIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Construct` at the end of the edge. */
+  node: Construct;
+  /** Reads and enables pagination through a set of `ToolUse`. */
+  toolUses: Array<ToolUse>;
+  /** Reads and enables pagination through a set of `ToolUse`. */
+  toolUsesConnection: ToolUsesConnection;
+};
+
+
+/** A `Construct` edge in the connection, with data from `ToolUse`. */
+export type AlleleConstructsByToolUseAlleleIdAndConstructIdManyToManyEdgeToolUsesArgs = {
+  condition?: InputMaybe<ToolUseCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
+};
+
+
+/** A `Construct` edge in the connection, with data from `ToolUse`. */
+export type AlleleConstructsByToolUseAlleleIdAndConstructIdManyToManyEdgeToolUsesConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ToolUseCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
+};
+
 export type AlleleDiseaseVariant = Node & {
   __typename?: 'AlleleDiseaseVariant';
   alleleDiseaseVariantId: Scalars['BigInt']['output'];
@@ -408,6 +663,100 @@ export enum AlleleDiseaseVariantsOrderBy {
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
 
+/** A connection to a list of `Gene` values, with data from `Insertion`. */
+export type AlleleGenesByInsertionAlleleIdAndGeneIdManyToManyConnection = {
+  __typename?: 'AlleleGenesByInsertionAlleleIdAndGeneIdManyToManyConnection';
+  /** A list of edges which contains the `Gene`, info from the `Insertion`, and the cursor to aid in pagination. */
+  edges: Array<AlleleGenesByInsertionAlleleIdAndGeneIdManyToManyEdge>;
+  /** A list of `Gene` objects. */
+  nodes: Array<Gene>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Gene` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Gene` edge in the connection, with data from `Insertion`. */
+export type AlleleGenesByInsertionAlleleIdAndGeneIdManyToManyEdge = {
+  __typename?: 'AlleleGenesByInsertionAlleleIdAndGeneIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `Insertion`. */
+  insertions: Array<Insertion>;
+  /** Reads and enables pagination through a set of `Insertion`. */
+  insertionsConnection: InsertionsConnection;
+  /** The `Gene` at the end of the edge. */
+  node: Gene;
+};
+
+
+/** A `Gene` edge in the connection, with data from `Insertion`. */
+export type AlleleGenesByInsertionAlleleIdAndGeneIdManyToManyEdgeInsertionsArgs = {
+  condition?: InputMaybe<InsertionCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<InsertionsOrderBy>>;
+};
+
+
+/** A `Gene` edge in the connection, with data from `Insertion`. */
+export type AlleleGenesByInsertionAlleleIdAndGeneIdManyToManyEdgeInsertionsConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<InsertionCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<InsertionsOrderBy>>;
+};
+
+/** A connection to a list of `Insertion` values, with data from `Construct`. */
+export type AlleleInsertionsByConstructAlleleIdAndInsertionIdManyToManyConnection = {
+  __typename?: 'AlleleInsertionsByConstructAlleleIdAndInsertionIdManyToManyConnection';
+  /** A list of edges which contains the `Insertion`, info from the `Construct`, and the cursor to aid in pagination. */
+  edges: Array<AlleleInsertionsByConstructAlleleIdAndInsertionIdManyToManyEdge>;
+  /** A list of `Insertion` objects. */
+  nodes: Array<Insertion>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Insertion` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Insertion` edge in the connection, with data from `Construct`. */
+export type AlleleInsertionsByConstructAlleleIdAndInsertionIdManyToManyEdge = {
+  __typename?: 'AlleleInsertionsByConstructAlleleIdAndInsertionIdManyToManyEdge';
+  /** Reads and enables pagination through a set of `Construct`. */
+  constructs: Array<Construct>;
+  /** Reads and enables pagination through a set of `Construct`. */
+  constructsConnection: ConstructsConnection;
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Insertion` at the end of the edge. */
+  node: Insertion;
+};
+
+
+/** A `Insertion` edge in the connection, with data from `Construct`. */
+export type AlleleInsertionsByConstructAlleleIdAndInsertionIdManyToManyEdgeConstructsArgs = {
+  condition?: InputMaybe<ConstructCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ConstructsOrderBy>>;
+};
+
+
+/** A `Insertion` edge in the connection, with data from `Construct`. */
+export type AlleleInsertionsByConstructAlleleIdAndInsertionIdManyToManyEdgeConstructsConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ConstructCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ConstructsOrderBy>>;
+};
+
 export type AlleleMutagen = Node & {
   __typename?: 'AlleleMutagen';
   /** Reads a single `Allele` that is related to this `AlleleMutagen`. */
@@ -471,6 +820,28 @@ export enum AlleleMutagensOrderBy {
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
+
+/** A connection to a list of `SplitSystemCombination` values, with data from `SplitSystemCombinationComponentAllele`. */
+export type AlleleSplitSystemCombinationsBySplitSystemCombinationComponentAlleleAlleleIdAndSplitSystemCombinationIdManyToManyConnection = {
+  __typename?: 'AlleleSplitSystemCombinationsBySplitSystemCombinationComponentAlleleAlleleIdAndSplitSystemCombinationIdManyToManyConnection';
+  /** A list of edges which contains the `SplitSystemCombination`, info from the `SplitSystemCombinationComponentAllele`, and the cursor to aid in pagination. */
+  edges: Array<AlleleSplitSystemCombinationsBySplitSystemCombinationComponentAlleleAlleleIdAndSplitSystemCombinationIdManyToManyEdge>;
+  /** A list of `SplitSystemCombination` objects. */
+  nodes: Array<SplitSystemCombination>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `SplitSystemCombination` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `SplitSystemCombination` edge in the connection, with data from `SplitSystemCombinationComponentAllele`. */
+export type AlleleSplitSystemCombinationsBySplitSystemCombinationComponentAlleleAlleleIdAndSplitSystemCombinationIdManyToManyEdge = {
+  __typename?: 'AlleleSplitSystemCombinationsBySplitSystemCombinationComponentAlleleAlleleIdAndSplitSystemCombinationIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `SplitSystemCombination` at the end of the edge. */
+  node: SplitSystemCombination;
+};
 
 export type AlleleStock = Node & {
   __typename?: 'AlleleStock';
@@ -545,6 +916,53 @@ export enum AlleleStocksOrderBy {
   StockNumberAsc = 'STOCK_NUMBER_ASC',
   StockNumberDesc = 'STOCK_NUMBER_DESC'
 }
+
+/** A connection to a list of `Tool` values, with data from `ToolUse`. */
+export type AlleleToolsByToolUseAlleleIdAndToolIdManyToManyConnection = {
+  __typename?: 'AlleleToolsByToolUseAlleleIdAndToolIdManyToManyConnection';
+  /** A list of edges which contains the `Tool`, info from the `ToolUse`, and the cursor to aid in pagination. */
+  edges: Array<AlleleToolsByToolUseAlleleIdAndToolIdManyToManyEdge>;
+  /** A list of `Tool` objects. */
+  nodes: Array<Tool>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Tool` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Tool` edge in the connection, with data from `ToolUse`. */
+export type AlleleToolsByToolUseAlleleIdAndToolIdManyToManyEdge = {
+  __typename?: 'AlleleToolsByToolUseAlleleIdAndToolIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Tool` at the end of the edge. */
+  node: Tool;
+  /** Reads and enables pagination through a set of `ToolUse`. */
+  toolUsesConnection: ToolUsesConnection;
+  /** Reads and enables pagination through a set of `ToolUse`. */
+  uses: Array<ToolUse>;
+};
+
+
+/** A `Tool` edge in the connection, with data from `ToolUse`. */
+export type AlleleToolsByToolUseAlleleIdAndToolIdManyToManyEdgeToolUsesConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ToolUseCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
+};
+
+
+/** A `Tool` edge in the connection, with data from `ToolUse`. */
+export type AlleleToolsByToolUseAlleleIdAndToolIdManyToManyEdgeUsesArgs = {
+  condition?: InputMaybe<ToolUseCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
+};
 
 export type AlleleTransgenicProductClass = Node & {
   __typename?: 'AlleleTransgenicProductClass';
@@ -742,6 +1160,14 @@ export type Construct = Node & {
   /** Reads a single `Allele` that is related to this `Construct`. */
   allele?: Maybe<Allele>;
   alleleId?: Maybe<Scalars['BigInt']['output']>;
+  /** Reads and enables pagination through a set of `Allele`. */
+  allelesByToolConstructIdAndAlleleId: ConstructAllelesByToolConstructIdAndAlleleIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Allele`. */
+  allelesByToolConstructIdAndAlleleIdList: Array<Allele>;
+  /** Reads and enables pagination through a set of `Allele`. */
+  allelesByToolUseConstructIdAndAlleleId: ConstructAllelesByToolUseConstructIdAndAlleleIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Allele`. */
+  allelesByToolUseConstructIdAndAlleleIdList: Array<Allele>;
   id?: Maybe<Scalars['String']['output']>;
   /** Reads a single `Insertion` that is related to this `Construct`. */
   insertion?: Maybe<Insertion>;
@@ -757,7 +1183,49 @@ export type Construct = Node & {
   /** Reads and enables pagination through a set of `Tool`. */
   tools: Array<Tool>;
   /** Reads and enables pagination through a set of `Tool`. */
+  toolsByToolUseConstructIdAndToolId: ConstructToolsByToolUseConstructIdAndToolIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Tool`. */
+  toolsByToolUseConstructIdAndToolIdList: Array<Tool>;
+  /** Reads and enables pagination through a set of `Tool`. */
   toolsConnection: ToolsConnection;
+};
+
+
+export type ConstructAllelesByToolConstructIdAndAlleleIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<AlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AllelesOrderBy>>;
+};
+
+
+export type ConstructAllelesByToolConstructIdAndAlleleIdListArgs = {
+  condition?: InputMaybe<AlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AllelesOrderBy>>;
+};
+
+
+export type ConstructAllelesByToolUseConstructIdAndAlleleIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<AlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AllelesOrderBy>>;
+};
+
+
+export type ConstructAllelesByToolUseConstructIdAndAlleleIdListArgs = {
+  condition?: InputMaybe<AlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AllelesOrderBy>>;
 };
 
 
@@ -788,6 +1256,25 @@ export type ConstructToolsArgs = {
 };
 
 
+export type ConstructToolsByToolUseConstructIdAndToolIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ToolCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolsOrderBy>>;
+};
+
+
+export type ConstructToolsByToolUseConstructIdAndToolIdListArgs = {
+  condition?: InputMaybe<ToolCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolsOrderBy>>;
+};
+
+
 export type ConstructToolsConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -796,6 +1283,100 @@ export type ConstructToolsConnectionArgs = {
   last?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Array<ToolsOrderBy>>;
+};
+
+/** A connection to a list of `Allele` values, with data from `Tool`. */
+export type ConstructAllelesByToolConstructIdAndAlleleIdManyToManyConnection = {
+  __typename?: 'ConstructAllelesByToolConstructIdAndAlleleIdManyToManyConnection';
+  /** A list of edges which contains the `Allele`, info from the `Tool`, and the cursor to aid in pagination. */
+  edges: Array<ConstructAllelesByToolConstructIdAndAlleleIdManyToManyEdge>;
+  /** A list of `Allele` objects. */
+  nodes: Array<Allele>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Allele` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Allele` edge in the connection, with data from `Tool`. */
+export type ConstructAllelesByToolConstructIdAndAlleleIdManyToManyEdge = {
+  __typename?: 'ConstructAllelesByToolConstructIdAndAlleleIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Allele` at the end of the edge. */
+  node: Allele;
+  /** Reads and enables pagination through a set of `Tool`. */
+  tools: Array<Tool>;
+  /** Reads and enables pagination through a set of `Tool`. */
+  toolsConnection: ToolsConnection;
+};
+
+
+/** A `Allele` edge in the connection, with data from `Tool`. */
+export type ConstructAllelesByToolConstructIdAndAlleleIdManyToManyEdgeToolsArgs = {
+  condition?: InputMaybe<ToolCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolsOrderBy>>;
+};
+
+
+/** A `Allele` edge in the connection, with data from `Tool`. */
+export type ConstructAllelesByToolConstructIdAndAlleleIdManyToManyEdgeToolsConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ToolCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolsOrderBy>>;
+};
+
+/** A connection to a list of `Allele` values, with data from `ToolUse`. */
+export type ConstructAllelesByToolUseConstructIdAndAlleleIdManyToManyConnection = {
+  __typename?: 'ConstructAllelesByToolUseConstructIdAndAlleleIdManyToManyConnection';
+  /** A list of edges which contains the `Allele`, info from the `ToolUse`, and the cursor to aid in pagination. */
+  edges: Array<ConstructAllelesByToolUseConstructIdAndAlleleIdManyToManyEdge>;
+  /** A list of `Allele` objects. */
+  nodes: Array<Allele>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Allele` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Allele` edge in the connection, with data from `ToolUse`. */
+export type ConstructAllelesByToolUseConstructIdAndAlleleIdManyToManyEdge = {
+  __typename?: 'ConstructAllelesByToolUseConstructIdAndAlleleIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Allele` at the end of the edge. */
+  node: Allele;
+  /** Reads and enables pagination through a set of `ToolUse`. */
+  toolUses: Array<ToolUse>;
+  /** Reads and enables pagination through a set of `ToolUse`. */
+  toolUsesConnection: ToolUsesConnection;
+};
+
+
+/** A `Allele` edge in the connection, with data from `ToolUse`. */
+export type ConstructAllelesByToolUseConstructIdAndAlleleIdManyToManyEdgeToolUsesArgs = {
+  condition?: InputMaybe<ToolUseCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
+};
+
+
+/** A `Allele` edge in the connection, with data from `ToolUse`. */
+export type ConstructAllelesByToolUseConstructIdAndAlleleIdManyToManyEdgeToolUsesConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ToolUseCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
 };
 
 /**
@@ -813,6 +1394,53 @@ export type ConstructCondition = {
   postgresId?: InputMaybe<Scalars['Int']['input']>;
   /** Checks for equality with the object’s `symbol` field. */
   symbol?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `Tool` values, with data from `ToolUse`. */
+export type ConstructToolsByToolUseConstructIdAndToolIdManyToManyConnection = {
+  __typename?: 'ConstructToolsByToolUseConstructIdAndToolIdManyToManyConnection';
+  /** A list of edges which contains the `Tool`, info from the `ToolUse`, and the cursor to aid in pagination. */
+  edges: Array<ConstructToolsByToolUseConstructIdAndToolIdManyToManyEdge>;
+  /** A list of `Tool` objects. */
+  nodes: Array<Tool>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Tool` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Tool` edge in the connection, with data from `ToolUse`. */
+export type ConstructToolsByToolUseConstructIdAndToolIdManyToManyEdge = {
+  __typename?: 'ConstructToolsByToolUseConstructIdAndToolIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Tool` at the end of the edge. */
+  node: Tool;
+  /** Reads and enables pagination through a set of `ToolUse`. */
+  toolUsesConnection: ToolUsesConnection;
+  /** Reads and enables pagination through a set of `ToolUse`. */
+  uses: Array<ToolUse>;
+};
+
+
+/** A `Tool` edge in the connection, with data from `ToolUse`. */
+export type ConstructToolsByToolUseConstructIdAndToolIdManyToManyEdgeToolUsesConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ToolUseCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
+};
+
+
+/** A `Tool` edge in the connection, with data from `ToolUse`. */
+export type ConstructToolsByToolUseConstructIdAndToolIdManyToManyEdgeUsesArgs = {
+  condition?: InputMaybe<ToolUseCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
 };
 
 /** A connection to a list of `Construct` values. */
@@ -936,6 +1564,10 @@ export type Gene = Node & {
   /** Reads and enables pagination through a set of `Allele`. */
   alleles: Array<Allele>;
   /** Reads and enables pagination through a set of `Allele`. */
+  allelesByInsertionGeneIdAndAlleleId: GeneAllelesByInsertionGeneIdAndAlleleIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Allele`. */
+  allelesByInsertionGeneIdAndAlleleIdList: Array<Allele>;
+  /** Reads and enables pagination through a set of `Allele`. */
   allelesConnection: AllelesConnection;
   dbxrefId?: Maybe<Scalars['Int']['output']>;
   featureId: Scalars['Int']['output'];
@@ -967,6 +1599,25 @@ export type GeneAllelesArgs = {
 };
 
 
+export type GeneAllelesByInsertionGeneIdAndAlleleIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<AlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AllelesOrderBy>>;
+};
+
+
+export type GeneAllelesByInsertionGeneIdAndAlleleIdListArgs = {
+  condition?: InputMaybe<AlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AllelesOrderBy>>;
+};
+
+
 export type GeneAllelesConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
@@ -987,6 +1638,53 @@ export type GeneInsertionsArgs = {
 
 
 export type GeneInsertionsConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<InsertionCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<InsertionsOrderBy>>;
+};
+
+/** A connection to a list of `Allele` values, with data from `Insertion`. */
+export type GeneAllelesByInsertionGeneIdAndAlleleIdManyToManyConnection = {
+  __typename?: 'GeneAllelesByInsertionGeneIdAndAlleleIdManyToManyConnection';
+  /** A list of edges which contains the `Allele`, info from the `Insertion`, and the cursor to aid in pagination. */
+  edges: Array<GeneAllelesByInsertionGeneIdAndAlleleIdManyToManyEdge>;
+  /** A list of `Allele` objects. */
+  nodes: Array<Allele>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Allele` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Allele` edge in the connection, with data from `Insertion`. */
+export type GeneAllelesByInsertionGeneIdAndAlleleIdManyToManyEdge = {
+  __typename?: 'GeneAllelesByInsertionGeneIdAndAlleleIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** Reads and enables pagination through a set of `Insertion`. */
+  insertions: Array<Insertion>;
+  /** Reads and enables pagination through a set of `Insertion`. */
+  insertionsConnection: InsertionsConnection;
+  /** The `Allele` at the end of the edge. */
+  node: Allele;
+};
+
+
+/** A `Allele` edge in the connection, with data from `Insertion`. */
+export type GeneAllelesByInsertionGeneIdAndAlleleIdManyToManyEdgeInsertionsArgs = {
+  condition?: InputMaybe<InsertionCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<InsertionsOrderBy>>;
+};
+
+
+/** A `Allele` edge in the connection, with data from `Insertion`. */
+export type GeneAllelesByInsertionGeneIdAndAlleleIdManyToManyEdgeInsertionsConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
   condition?: InputMaybe<InsertionCondition>;
@@ -1129,6 +1827,10 @@ export type Insertion = Node & {
   /** Reads a single `Allele` that is related to this `Insertion`. */
   allele?: Maybe<Allele>;
   alleleId?: Maybe<Scalars['BigInt']['output']>;
+  /** Reads and enables pagination through a set of `Allele`. */
+  allelesByConstructInsertionIdAndAlleleId: InsertionAllelesByConstructInsertionIdAndAlleleIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Allele`. */
+  allelesByConstructInsertionIdAndAlleleIdList: Array<Allele>;
   alsoCarries?: Maybe<Array<Maybe<Tool>>>;
   /** Reads and enables pagination through a set of `Construct`. */
   constructs: Array<Construct>;
@@ -1153,6 +1855,25 @@ export type Insertion = Node & {
 };
 
 
+export type InsertionAllelesByConstructInsertionIdAndAlleleIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<AlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AllelesOrderBy>>;
+};
+
+
+export type InsertionAllelesByConstructInsertionIdAndAlleleIdListArgs = {
+  condition?: InputMaybe<AlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AllelesOrderBy>>;
+};
+
+
 export type InsertionConstructsArgs = {
   condition?: InputMaybe<ConstructCondition>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1162,6 +1883,53 @@ export type InsertionConstructsArgs = {
 
 
 export type InsertionConstructsConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ConstructCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ConstructsOrderBy>>;
+};
+
+/** A connection to a list of `Allele` values, with data from `Construct`. */
+export type InsertionAllelesByConstructInsertionIdAndAlleleIdManyToManyConnection = {
+  __typename?: 'InsertionAllelesByConstructInsertionIdAndAlleleIdManyToManyConnection';
+  /** A list of edges which contains the `Allele`, info from the `Construct`, and the cursor to aid in pagination. */
+  edges: Array<InsertionAllelesByConstructInsertionIdAndAlleleIdManyToManyEdge>;
+  /** A list of `Allele` objects. */
+  nodes: Array<Allele>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Allele` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Allele` edge in the connection, with data from `Construct`. */
+export type InsertionAllelesByConstructInsertionIdAndAlleleIdManyToManyEdge = {
+  __typename?: 'InsertionAllelesByConstructInsertionIdAndAlleleIdManyToManyEdge';
+  /** Reads and enables pagination through a set of `Construct`. */
+  constructs: Array<Construct>;
+  /** Reads and enables pagination through a set of `Construct`. */
+  constructsConnection: ConstructsConnection;
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Allele` at the end of the edge. */
+  node: Allele;
+};
+
+
+/** A `Allele` edge in the connection, with data from `Construct`. */
+export type InsertionAllelesByConstructInsertionIdAndAlleleIdManyToManyEdgeConstructsArgs = {
+  condition?: InputMaybe<ConstructCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ConstructsOrderBy>>;
+};
+
+
+/** A `Allele` edge in the connection, with data from `Construct`. */
+export type InsertionAllelesByConstructInsertionIdAndAlleleIdManyToManyEdgeConstructsConnectionArgs = {
   after?: InputMaybe<Scalars['Cursor']['input']>;
   before?: InputMaybe<Scalars['Cursor']['input']>;
   condition?: InputMaybe<ConstructCondition>;
@@ -1688,6 +2456,24 @@ export type Query = {
    */
   query: Query;
   searchExpressionTools?: Maybe<Array<Maybe<ExpressionToolSearchResult>>>;
+  splitSystemCombination?: Maybe<SplitSystemCombination>;
+  /** Reads a single `SplitSystemCombination` using its globally unique `ID`. */
+  splitSystemCombinationByNodeId?: Maybe<SplitSystemCombination>;
+  splitSystemCombinationComponentAllele?: Maybe<SplitSystemCombinationComponentAllele>;
+  /** Reads a single `SplitSystemCombinationComponentAllele` using its globally unique `ID`. */
+  splitSystemCombinationComponentAlleleByNodeId?: Maybe<SplitSystemCombinationComponentAllele>;
+  /** Reads a set of `SplitSystemCombinationComponentAllele`. */
+  splitSystemCombinationComponentAlleles?: Maybe<Array<SplitSystemCombinationComponentAllele>>;
+  /** Reads and enables pagination through a set of `SplitSystemCombinationComponentAllele`. */
+  splitSystemCombinationComponentAllelesConnection?: Maybe<SplitSystemCombinationComponentAllelesConnection>;
+  /** Reads a set of `SplitSystemCombination`. */
+  splitSystemCombinations?: Maybe<Array<SplitSystemCombination>>;
+  /** Reads and enables pagination through a set of `SplitSystemCombination`. */
+  splitSystemCombinationsByFbal?: Maybe<Array<SplitSystemCombination>>;
+  /** Reads and enables pagination through a set of `SplitSystemCombination`. */
+  splitSystemCombinationsByFbalConnection?: Maybe<SplitSystemCombinationsConnection>;
+  /** Reads and enables pagination through a set of `SplitSystemCombination`. */
+  splitSystemCombinationsConnection?: Maybe<SplitSystemCombinationsConnection>;
   tool?: Maybe<Tool>;
   /** Reads a single `Tool` using its globally unique `ID`. */
   toolByNodeId?: Maybe<Tool>;
@@ -2275,6 +3061,82 @@ export type QuerySearchExpressionToolsArgs = {
 };
 
 
+export type QuerySplitSystemCombinationArgs = {
+  postgresId: Scalars['Int']['input'];
+};
+
+
+export type QuerySplitSystemCombinationByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QuerySplitSystemCombinationComponentAlleleArgs = {
+  alleleId: Scalars['Int']['input'];
+  splitSystemCombinationId: Scalars['Int']['input'];
+};
+
+
+export type QuerySplitSystemCombinationComponentAlleleByNodeIdArgs = {
+  nodeId: Scalars['ID']['input'];
+};
+
+
+export type QuerySplitSystemCombinationComponentAllelesArgs = {
+  condition?: InputMaybe<SplitSystemCombinationComponentAlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SplitSystemCombinationComponentAllelesOrderBy>>;
+};
+
+
+export type QuerySplitSystemCombinationComponentAllelesConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<SplitSystemCombinationComponentAlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SplitSystemCombinationComponentAllelesOrderBy>>;
+};
+
+
+export type QuerySplitSystemCombinationsArgs = {
+  condition?: InputMaybe<SplitSystemCombinationCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SplitSystemCombinationsOrderBy>>;
+};
+
+
+export type QuerySplitSystemCombinationsByFbalArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  ids?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QuerySplitSystemCombinationsByFbalConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  ids?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QuerySplitSystemCombinationsConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<SplitSystemCombinationCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SplitSystemCombinationsOrderBy>>;
+};
+
+
 export type QueryToolArgs = {
   postgresId: Scalars['Int']['input'];
 };
@@ -2332,14 +3194,213 @@ export type QueryToolsConnectionArgs = {
   orderBy?: InputMaybe<Array<ToolsOrderBy>>;
 };
 
+export type SplitSystemCombination = Node & {
+  __typename?: 'SplitSystemCombination';
+  /** Reads and enables pagination through a set of `Allele`. */
+  componentAlleles: Array<Allele>;
+  /** Reads and enables pagination through a set of `Allele`. */
+  componentAllelesConnection: SplitSystemCombinationAllelesBySplitSystemCombinationComponentAlleleSplitSystemCombinationIdAndAlleleIdManyToManyConnection;
+  id?: Maybe<Scalars['String']['output']>;
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  postgresId: Scalars['Int']['output'];
+  pubCount?: Maybe<Scalars['BigInt']['output']>;
+  /** Reads and enables pagination through a set of `SplitSystemCombinationComponentAllele`. */
+  splitSystemCombinationComponentAlleles: Array<SplitSystemCombinationComponentAllele>;
+  /** Reads and enables pagination through a set of `SplitSystemCombinationComponentAllele`. */
+  splitSystemCombinationComponentAllelesConnection: SplitSystemCombinationComponentAllelesConnection;
+  stocksCount?: Maybe<Scalars['BigInt']['output']>;
+  symbol?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type SplitSystemCombinationComponentAllelesArgs = {
+  condition?: InputMaybe<AlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AllelesOrderBy>>;
+};
+
+
+export type SplitSystemCombinationComponentAllelesConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<AlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AllelesOrderBy>>;
+};
+
+
+export type SplitSystemCombinationSplitSystemCombinationComponentAllelesArgs = {
+  condition?: InputMaybe<SplitSystemCombinationComponentAlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SplitSystemCombinationComponentAllelesOrderBy>>;
+};
+
+
+export type SplitSystemCombinationSplitSystemCombinationComponentAllelesConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<SplitSystemCombinationComponentAlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<SplitSystemCombinationComponentAllelesOrderBy>>;
+};
+
+/** A connection to a list of `Allele` values, with data from `SplitSystemCombinationComponentAllele`. */
+export type SplitSystemCombinationAllelesBySplitSystemCombinationComponentAlleleSplitSystemCombinationIdAndAlleleIdManyToManyConnection = {
+  __typename?: 'SplitSystemCombinationAllelesBySplitSystemCombinationComponentAlleleSplitSystemCombinationIdAndAlleleIdManyToManyConnection';
+  /** A list of edges which contains the `Allele`, info from the `SplitSystemCombinationComponentAllele`, and the cursor to aid in pagination. */
+  edges: Array<SplitSystemCombinationAllelesBySplitSystemCombinationComponentAlleleSplitSystemCombinationIdAndAlleleIdManyToManyEdge>;
+  /** A list of `Allele` objects. */
+  nodes: Array<Allele>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Allele` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Allele` edge in the connection, with data from `SplitSystemCombinationComponentAllele`. */
+export type SplitSystemCombinationAllelesBySplitSystemCombinationComponentAlleleSplitSystemCombinationIdAndAlleleIdManyToManyEdge = {
+  __typename?: 'SplitSystemCombinationAllelesBySplitSystemCombinationComponentAlleleSplitSystemCombinationIdAndAlleleIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Allele` at the end of the edge. */
+  node: Allele;
+};
+
+export type SplitSystemCombinationComponentAllele = Node & {
+  __typename?: 'SplitSystemCombinationComponentAllele';
+  /** Reads a single `Allele` that is related to this `SplitSystemCombinationComponentAllele`. */
+  allele?: Maybe<Allele>;
+  alleleId: Scalars['Int']['output'];
+  /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
+  nodeId: Scalars['ID']['output'];
+  /** Reads a single `SplitSystemCombination` that is related to this `SplitSystemCombinationComponentAllele`. */
+  splitSystemCombination?: Maybe<SplitSystemCombination>;
+  splitSystemCombinationId: Scalars['Int']['output'];
+};
+
+/**
+ * A condition to be used against `SplitSystemCombinationComponentAllele` object
+ * types. All fields are tested for equality and combined with a logical ‘and.’
+ */
+export type SplitSystemCombinationComponentAlleleCondition = {
+  /** Checks for equality with the object’s `alleleId` field. */
+  alleleId?: InputMaybe<Scalars['Int']['input']>;
+  /** Checks for equality with the object’s `splitSystemCombinationId` field. */
+  splitSystemCombinationId?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** A connection to a list of `SplitSystemCombinationComponentAllele` values. */
+export type SplitSystemCombinationComponentAllelesConnection = {
+  __typename?: 'SplitSystemCombinationComponentAllelesConnection';
+  /** A list of edges which contains the `SplitSystemCombinationComponentAllele` and cursor to aid in pagination. */
+  edges: Array<SplitSystemCombinationComponentAllelesEdge>;
+  /** A list of `SplitSystemCombinationComponentAllele` objects. */
+  nodes: Array<SplitSystemCombinationComponentAllele>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `SplitSystemCombinationComponentAllele` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `SplitSystemCombinationComponentAllele` edge in the connection. */
+export type SplitSystemCombinationComponentAllelesEdge = {
+  __typename?: 'SplitSystemCombinationComponentAllelesEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `SplitSystemCombinationComponentAllele` at the end of the edge. */
+  node: SplitSystemCombinationComponentAllele;
+};
+
+/** Methods to use when ordering `SplitSystemCombinationComponentAllele`. */
+export enum SplitSystemCombinationComponentAllelesOrderBy {
+  AlleleIdAsc = 'ALLELE_ID_ASC',
+  AlleleIdDesc = 'ALLELE_ID_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  SplitSystemCombinationIdAsc = 'SPLIT_SYSTEM_COMBINATION_ID_ASC',
+  SplitSystemCombinationIdDesc = 'SPLIT_SYSTEM_COMBINATION_ID_DESC'
+}
+
+/**
+ * A condition to be used against `SplitSystemCombination` object types. All fields
+ * are tested for equality and combined with a logical ‘and.’
+ */
+export type SplitSystemCombinationCondition = {
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** Checks for equality with the object’s `postgresId` field. */
+  postgresId?: InputMaybe<Scalars['Int']['input']>;
+  /** Checks for equality with the object’s `pubCount` field. */
+  pubCount?: InputMaybe<Scalars['BigInt']['input']>;
+  /** Checks for equality with the object’s `stocksCount` field. */
+  stocksCount?: InputMaybe<Scalars['BigInt']['input']>;
+  /** Checks for equality with the object’s `symbol` field. */
+  symbol?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `SplitSystemCombination` values. */
+export type SplitSystemCombinationsConnection = {
+  __typename?: 'SplitSystemCombinationsConnection';
+  /** A list of edges which contains the `SplitSystemCombination` and cursor to aid in pagination. */
+  edges: Array<SplitSystemCombinationsEdge>;
+  /** A list of `SplitSystemCombination` objects. */
+  nodes: Array<SplitSystemCombination>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `SplitSystemCombination` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `SplitSystemCombination` edge in the connection. */
+export type SplitSystemCombinationsEdge = {
+  __typename?: 'SplitSystemCombinationsEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `SplitSystemCombination` at the end of the edge. */
+  node: SplitSystemCombination;
+};
+
+/** Methods to use when ordering `SplitSystemCombination`. */
+export enum SplitSystemCombinationsOrderBy {
+  FbcoIdAsc = 'FBCO_ID_ASC',
+  FbcoIdDesc = 'FBCO_ID_DESC',
+  IdAsc = 'ID_ASC',
+  IdDesc = 'ID_DESC',
+  Natural = 'NATURAL',
+  PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
+  PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
+  PubCountAsc = 'PUB_COUNT_ASC',
+  PubCountDesc = 'PUB_COUNT_DESC',
+  StocksCountAsc = 'STOCKS_COUNT_ASC',
+  StocksCountDesc = 'STOCKS_COUNT_DESC',
+  SymbolAsc = 'SYMBOL_ASC',
+  SymbolDesc = 'SYMBOL_DESC'
+}
+
 export type Tool = Node & {
   __typename?: 'Tool';
   /** Reads a single `Allele` that is related to this `Tool`. */
   allele?: Maybe<Allele>;
   alleleId?: Maybe<Scalars['BigInt']['output']>;
+  /** Reads and enables pagination through a set of `Allele`. */
+  allelesByToolUseToolIdAndAlleleId: ToolAllelesByToolUseToolIdAndAlleleIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Allele`. */
+  allelesByToolUseToolIdAndAlleleIdList: Array<Allele>;
   /** Reads a single `Construct` that is related to this `Tool`. */
   construct?: Maybe<Construct>;
   constructId?: Maybe<Scalars['BigInt']['output']>;
+  /** Reads and enables pagination through a set of `Construct`. */
+  constructsByToolUseToolIdAndConstructId: ToolConstructsByToolUseToolIdAndConstructIdManyToManyConnection;
+  /** Reads and enables pagination through a set of `Construct`. */
+  constructsByToolUseToolIdAndConstructIdList: Array<Construct>;
   id?: Maybe<Scalars['String']['output']>;
   /** A globally unique identifier. Can be used in various places throughout the system to identify this single value. */
   nodeId: Scalars['ID']['output'];
@@ -2350,6 +3411,44 @@ export type Tool = Node & {
   toolUsesConnection: ToolUsesConnection;
   /** Reads and enables pagination through a set of `ToolUse`. */
   uses: Array<ToolUse>;
+};
+
+
+export type ToolAllelesByToolUseToolIdAndAlleleIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<AlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AllelesOrderBy>>;
+};
+
+
+export type ToolAllelesByToolUseToolIdAndAlleleIdListArgs = {
+  condition?: InputMaybe<AlleleCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<AllelesOrderBy>>;
+};
+
+
+export type ToolConstructsByToolUseToolIdAndConstructIdArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ConstructCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ConstructsOrderBy>>;
+};
+
+
+export type ToolConstructsByToolUseToolIdAndConstructIdListArgs = {
+  condition?: InputMaybe<ConstructCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ConstructsOrderBy>>;
 };
 
 
@@ -2371,6 +3470,53 @@ export type ToolUsesArgs = {
   orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
 };
 
+/** A connection to a list of `Allele` values, with data from `ToolUse`. */
+export type ToolAllelesByToolUseToolIdAndAlleleIdManyToManyConnection = {
+  __typename?: 'ToolAllelesByToolUseToolIdAndAlleleIdManyToManyConnection';
+  /** A list of edges which contains the `Allele`, info from the `ToolUse`, and the cursor to aid in pagination. */
+  edges: Array<ToolAllelesByToolUseToolIdAndAlleleIdManyToManyEdge>;
+  /** A list of `Allele` objects. */
+  nodes: Array<Allele>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Allele` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Allele` edge in the connection, with data from `ToolUse`. */
+export type ToolAllelesByToolUseToolIdAndAlleleIdManyToManyEdge = {
+  __typename?: 'ToolAllelesByToolUseToolIdAndAlleleIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Allele` at the end of the edge. */
+  node: Allele;
+  /** Reads and enables pagination through a set of `ToolUse`. */
+  toolUses: Array<ToolUse>;
+  /** Reads and enables pagination through a set of `ToolUse`. */
+  toolUsesConnection: ToolUsesConnection;
+};
+
+
+/** A `Allele` edge in the connection, with data from `ToolUse`. */
+export type ToolAllelesByToolUseToolIdAndAlleleIdManyToManyEdgeToolUsesArgs = {
+  condition?: InputMaybe<ToolUseCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
+};
+
+
+/** A `Allele` edge in the connection, with data from `ToolUse`. */
+export type ToolAllelesByToolUseToolIdAndAlleleIdManyToManyEdgeToolUsesConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ToolUseCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
+};
+
 /** A condition to be used against `Tool` object types. All fields are tested for equality and combined with a logical ‘and.’ */
 export type ToolCondition = {
   /** Checks for equality with the object’s `alleleId` field. */
@@ -2385,6 +3531,53 @@ export type ToolCondition = {
   relType?: InputMaybe<Scalars['String']['input']>;
   /** Checks for equality with the object’s `symbol` field. */
   symbol?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** A connection to a list of `Construct` values, with data from `ToolUse`. */
+export type ToolConstructsByToolUseToolIdAndConstructIdManyToManyConnection = {
+  __typename?: 'ToolConstructsByToolUseToolIdAndConstructIdManyToManyConnection';
+  /** A list of edges which contains the `Construct`, info from the `ToolUse`, and the cursor to aid in pagination. */
+  edges: Array<ToolConstructsByToolUseToolIdAndConstructIdManyToManyEdge>;
+  /** A list of `Construct` objects. */
+  nodes: Array<Construct>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Construct` you could get from the connection. */
+  totalCount: Scalars['Int']['output'];
+};
+
+/** A `Construct` edge in the connection, with data from `ToolUse`. */
+export type ToolConstructsByToolUseToolIdAndConstructIdManyToManyEdge = {
+  __typename?: 'ToolConstructsByToolUseToolIdAndConstructIdManyToManyEdge';
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']['output']>;
+  /** The `Construct` at the end of the edge. */
+  node: Construct;
+  /** Reads and enables pagination through a set of `ToolUse`. */
+  toolUses: Array<ToolUse>;
+  /** Reads and enables pagination through a set of `ToolUse`. */
+  toolUsesConnection: ToolUsesConnection;
+};
+
+
+/** A `Construct` edge in the connection, with data from `ToolUse`. */
+export type ToolConstructsByToolUseToolIdAndConstructIdManyToManyEdgeToolUsesArgs = {
+  condition?: InputMaybe<ToolUseCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
+};
+
+
+/** A `Construct` edge in the connection, with data from `ToolUse`. */
+export type ToolConstructsByToolUseToolIdAndConstructIdManyToManyEdgeToolUsesConnectionArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  condition?: InputMaybe<ToolUseCondition>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Array<ToolUsesOrderBy>>;
 };
 
 export type ToolUse = Node & {
@@ -2513,6 +3706,8 @@ export type VariantsByGeneResult = {
   alleles?: Maybe<Array<Maybe<AllianceAllele>>>;
 };
 
+export type FullAlleleFragment = { __typename?: 'Allele', id?: string | null, symbol?: string | null, isConstruct?: boolean | null, stocksCount?: any | null, pubCount?: any | null, knownLesion?: boolean | null, hasImage?: boolean | null, geneIsRegulatoryRegion?: boolean | null, mutagens: Array<{ __typename?: 'AlleleMutagen', id?: string | null, name?: string | null }>, classes: Array<{ __typename?: 'AlleleClass', id?: string | null, name?: string | null }>, insertions: Array<{ __typename?: 'Insertion', id?: string | null, symbol?: string | null }>, constructs: Array<{ __typename?: 'Construct', id?: string | null, symbol?: string | null }>, insertedElementTypes?: Array<{ __typename?: 'ToolUse', id?: string | null, name?: string | null } | null> | null, regRegions?: Array<{ __typename?: 'Tool', id?: string | null, symbol?: string | null } | null> | null, encodedTools?: Array<{ __typename?: 'Tool', id?: string | null, symbol?: string | null } | null> | null, encodedToolUses?: Array<{ __typename?: 'ToolUse', id?: string | null, name?: string | null } | null> | null, taggedWith?: Array<{ __typename?: 'Tool', id?: string | null, symbol?: string | null } | null> | null, tagUses?: Array<{ __typename?: 'ToolUse', id?: string | null, name?: string | null } | null> | null, alsoCarries?: Array<{ __typename?: 'Tool', id?: string | null, symbol?: string | null } | null> | null } & { ' $fragmentName'?: 'FullAlleleFragment' };
+
 export type GeneToolKitMostCommonlyUsedQueryVariables = Exact<{
   geneId?: InputMaybe<Scalars['String']['input']>;
 }>;
@@ -2520,5 +3715,36 @@ export type GeneToolKitMostCommonlyUsedQueryVariables = Exact<{
 
 export type GeneToolKitMostCommonlyUsedQuery = { __typename?: 'Query', classicalAndInsertionsAlleles?: Array<{ __typename?: 'Gene', alleles: Array<{ __typename?: 'Allele', id?: string | null, paperCount?: any | null, stocksCount?: any | null, pubCount?: any | null, symbol?: string | null, classes: Array<{ __typename?: 'AlleleClass', name?: string | null }>, tagUses?: Array<{ __typename?: 'ToolUse', name?: string | null } | null> | null }> }> | null, transgenicConstructs?: Array<{ __typename?: 'Gene', alleles: Array<{ __typename?: 'Allele', id?: string | null, paperCount?: any | null, stocksCount?: any | null, pubCount?: any | null, symbol?: string | null, transgenicProductClasses: Array<{ __typename?: 'AlleleTransgenicProductClass', transgenicProductClass?: string | null }>, classes: Array<{ __typename?: 'AlleleClass', name?: string | null }>, regRegions?: Array<{ __typename?: 'Tool', symbol?: string | null } | null> | null, taggedWith?: Array<{ __typename?: 'Tool', symbol?: string | null } | null> | null, tagUses?: Array<{ __typename?: 'ToolUse', name?: string | null } | null> | null }> }> | null };
 
+export type GetAllelesQueryVariables = Exact<{
+  fbal_ids: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
+}>;
 
+
+export type GetAllelesQuery = { __typename?: 'Query', alleles?: Array<(
+    { __typename?: 'Allele' }
+    & { ' $fragmentRefs'?: { 'FullAlleleFragment': FullAlleleFragment } }
+  )> | null };
+
+export type GetSplitSystemCombinationsQueryVariables = Exact<{
+  fbal_ids: Array<InputMaybe<Scalars['String']['input']>> | InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type GetSplitSystemCombinationsQuery = { __typename?: 'Query', splitSystemCombinations?: Array<{ __typename?: 'SplitSystemCombination', id?: string | null, pubCount?: any | null, symbol?: string | null, stocksCount?: any | null, componentAlleles: Array<(
+      { __typename?: 'Allele' }
+      & { ' $fragmentRefs'?: { 'FullAlleleFragment': FullAlleleFragment } }
+    )> }> | null };
+
+export type FindToolsQueryVariables = Exact<{
+  expression?: InputMaybe<ExpressionSearchInput>;
+  gene?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type FindToolsQuery = { __typename?: 'Query', alleles?: Array<{ __typename?: 'ExpressionToolSearchResult', id: string, expression_terms: Array<{ __typename?: 'AllianceCVTerm', id: string, name?: string | null } | null> } | null> | null };
+
+export const FullAlleleFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullAllele"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Allele"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"isConstruct"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"knownLesion"}},{"kind":"Field","name":{"kind":"Name","value":"hasImage"}},{"kind":"Field","name":{"kind":"Name","value":"geneIsRegulatoryRegion"}},{"kind":"Field","name":{"kind":"Name","value":"mutagens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"constructs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertedElementTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"regRegions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedTools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedToolUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taggedWith"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alsoCarries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}}]} as unknown as DocumentNode<FullAlleleFragment, unknown>;
 export const GeneToolKitMostCommonlyUsedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GeneToolKitMostCommonlyUsed"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"geneId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"classicalAndInsertionsAlleles"},"name":{"kind":"Name","value":"genes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"geneId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alleles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":false}},{"kind":"ObjectField","name":{"kind":"Name","value":"geneIsRegulatoryRegion"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"paperCount"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","alias":{"kind":"Name","value":"transgenicConstructs"},"name":{"kind":"Name","value":"genes"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"geneId"}}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alleles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"condition"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"isConstruct"},"value":{"kind":"BooleanValue","value":true}},{"kind":"ObjectField","name":{"kind":"Name","value":"geneIsRegulatoryRegion"},"value":{"kind":"BooleanValue","value":false}}]}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"paperCount"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"transgenicProductClasses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"transgenicProductClass"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"regRegions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taggedWith"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GeneToolKitMostCommonlyUsedQuery, GeneToolKitMostCommonlyUsedQueryVariables>;
+export const GetAllelesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getAlleles"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"fbal_ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"alleles"},"name":{"kind":"Name","value":"allelesByFbal"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"fbal_ids"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FullAllele"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullAllele"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Allele"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"isConstruct"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"knownLesion"}},{"kind":"Field","name":{"kind":"Name","value":"hasImage"}},{"kind":"Field","name":{"kind":"Name","value":"geneIsRegulatoryRegion"}},{"kind":"Field","name":{"kind":"Name","value":"mutagens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"constructs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertedElementTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"regRegions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedTools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedToolUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taggedWith"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alsoCarries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}}]} as unknown as DocumentNode<GetAllelesQuery, GetAllelesQueryVariables>;
+export const GetSplitSystemCombinationsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getSplitSystemCombinations"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"fbal_ids"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"splitSystemCombinations"},"name":{"kind":"Name","value":"splitSystemCombinationsByFbal"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"ids"},"value":{"kind":"Variable","name":{"kind":"Name","value":"fbal_ids"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"componentAlleles"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FullAllele"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullAllele"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Allele"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}},{"kind":"Field","name":{"kind":"Name","value":"isConstruct"}},{"kind":"Field","name":{"kind":"Name","value":"stocksCount"}},{"kind":"Field","name":{"kind":"Name","value":"pubCount"}},{"kind":"Field","name":{"kind":"Name","value":"knownLesion"}},{"kind":"Field","name":{"kind":"Name","value":"hasImage"}},{"kind":"Field","name":{"kind":"Name","value":"geneIsRegulatoryRegion"}},{"kind":"Field","name":{"kind":"Name","value":"mutagens"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"classes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"constructs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"insertedElementTypes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"regRegions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedTools"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"encodedToolUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"taggedWith"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tagUses"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"alsoCarries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"symbol"}}]}}]}}]} as unknown as DocumentNode<GetSplitSystemCombinationsQuery, GetSplitSystemCombinationsQueryVariables>;
+export const FindToolsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"findTools"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"expression"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ExpressionSearchInput"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"gene"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"alleles"},"name":{"kind":"Name","value":"searchExpressionTools"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"expression"},"value":{"kind":"Variable","name":{"kind":"Name","value":"expression"}}},{"kind":"Argument","name":{"kind":"Name","value":"gene"},"value":{"kind":"Variable","name":{"kind":"Name","value":"gene"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"expression_terms"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<FindToolsQuery, FindToolsQueryVariables>;
