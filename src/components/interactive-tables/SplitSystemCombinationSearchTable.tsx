@@ -237,11 +237,13 @@ const SSC_COLUMNS = [
 
 const SplitSystemCombinationSearchTable: React.FC<SplitSystemCombinationSearchTableProps> = ({expression}) => {
 
-    const [{ type }] = useSmartStorage("gal4Search");
+    const [gal4Search] = useSmartStorage("gal4Search");
 
     const {loading, errors, data: { sscSearch }} = useGAL4Search({ expression }, "ssc");
 
-    if(!type || type !== "ssc") return null;
+    console.log("SSC local", gal4Search);
+
+    if(!gal4Search || !gal4Search.type || gal4Search.type !== "ssc") return null;
 
     if(loading) return <div>Loading...</div>;
 

@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useReducer} from "react";
+import {useCallback, useEffect, useReducer, useState} from "react";
 import getByPath from "../helpers/getByPath";
 
 // get initial state. If any of the rootPath doesn't exist, create it
@@ -19,6 +19,8 @@ const initializeReducer = (rootPath: string) => {
 
 //update the state based on a new value
 const reducer = (state: any, action: { rootPath: string, newValue: any, replaceAll?: boolean }) => {
+
+    console.log("SSC REDUCER", state, action);
 
     if(JSON.stringify(state) === JSON.stringify(action.newValue)) return state;
 
@@ -71,6 +73,7 @@ const reducer = (state: any, action: { rootPath: string, newValue: any, replaceA
 const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string, newValue: any) => void, (path: string) => void] => {
     //TODO: support cross tab updates as an option
     const [value, setValue] = useReducer(reducer, rootPath, initializeReducer);
+    const [isSelfUpdating, setIsSelfUpdating] = useState(false);
 
     const localStorageKey = rootPath.substring(0, rootPath.indexOf(".")) || rootPath;
 
@@ -79,10 +82,11 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
     //TODO: add logic to prevent this when triggers because a different hook changes localStorage, firing the event
     //listener below, and thus this useEffect?
     useEffect(() => {
-        let fullValue: any = window.localStorage.getItem(localStorageKey);
-        if(fullValue === JSON.stringify(value)) {
+        console.log("useEFFECT", value, isSelfUpdating)
+        if(isSelfUpdating) {
             return;
         }
+        let fullValue: any = window.localStorage.getItem(localStorageKey);
         fullValue = fullValue === null ? {} : JSON.parse(fullValue);
         const parentPath = rootPath.substring(localStorageKey.length + 1, rootPath.lastIndexOf(".")) || rootPath;
         const keyToUpdate = rootPath.substring(rootPath.lastIndexOf(".") + 1);
@@ -94,13 +98,28 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
             fullValue = value;
         }
 
+        const realValue = getByPath(JSON.parse(window.localStorage.getItem(localStorageKey)!), rootPath.substring(localStorageKey.length) || rootPath);
+
+
+        if(JSON.stringify(realValue) !== JSON.stringify(value)) {
+            return;
+        }
+
         window.localStorage.setItem(localStorageKey, JSON.stringify(fullValue));
         window.dispatchEvent(new CustomEvent('localStorage'));
-    }, [localStorageKey, rootPath, value]);
+    }, [isSelfUpdating, localStorageKey, rootPath, value]);
 
     //Used to update state when another instance of the hook saves info to localStorage (only for hooks on the same tab)
     const updateValue = useCallback((event: Event) => {
-        const realValue = getByPath(JSON.parse(window.localStorage.getItem(localStorageKey)!), rootPath.substring(localStorageKey.length) || rootPath);
+        setIsSelfUpdating(true);
+        let realValue;
+        if(rootPath === localStorageKey) {
+            realValue = JSON.parse(window.localStorage.getItem(localStorageKey)!);
+        } else {
+            realValue = getByPath(JSON.parse(window.localStorage.getItem(localStorageKey)!), rootPath.substring(localStorageKey.length) || rootPath);
+        }
+
+        console.log("UPDATE VALUE", window.localStorage.getItem(localStorageKey), value, realValue);
 
         //Only refresh state if the new value is different. (prevents infinite loops)
         if(JSON.stringify(realValue) !== JSON.stringify(value)) {
@@ -110,6 +129,8 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
                 replaceAll: true
             });
         }
+
+        setIsSelfUpdating(false);
     }, [value, rootPath, localStorageKey]);
 
     //If another hook in the same tab updates localStorage, update the state to match

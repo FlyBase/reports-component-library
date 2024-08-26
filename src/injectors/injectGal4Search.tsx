@@ -10,7 +10,7 @@ const injectGal4Search = () => {
     const element = document.getElementById("exp-query");
     if(!element) throw new Error("No data provided on page. An element with id 'exp-query' containing expression JSON must be present.");
 
-    const expression = JSON.parse(element.textContent!);
+    const expression = JSON.parse(element.textContent!).query.expression;
 
     injectComponents([
         { containerId: "gal4-ssc-search-table-container", component: <SplitSystemCombinationSearchTable expression={expression} /> },
