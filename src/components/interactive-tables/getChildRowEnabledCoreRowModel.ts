@@ -7,7 +7,7 @@ import {
     getMemoOptions,
     CoreRow,
     useReactTable,
-    TableOptions
+    TableOptions, Cell
 } from "@tanstack/react-table";
 import {DeepKeysMaxDepth, DeepKeysOfObjectArrayTypes, TypeByPath, TypeOrArrayType} from "../../types";
 import {getByPath} from "../../helpers/getByPath";
@@ -39,6 +39,7 @@ export interface ChildRowEnabledCoreRow<TData extends RowData> extends CoreRow<T
     totalChildRows: number;
     getLeafChildRows: () => ChildRowEnabledRow<TData>[];
     rootChildPath?: ChildRowKeys<TData>;
+    getVisibleLeafCells: () => Cell<TData, unknown>[];
 }
 
 export function getChildRowEnabledCoreRowModel<TData extends RowData, TableType extends RowData = TData | ChildRowType<TData>>(): (
@@ -140,6 +141,9 @@ export function getChildRowEnabledCoreRowModel<TData extends RowData, TableType 
                             }
                         }
 
+
+                        row.getVisibleLeafCells = row.getVisibleCells;
+
                         row.getVisibleCells = memo(
                             () => [
                                 row.getLeftVisibleCells(),
@@ -164,6 +168,7 @@ export function getChildRowEnabledCoreRowModel<TData extends RowData, TableType 
                             })).filter(cell => cell.column.columnDef.meta?.childRow?.path === rootChildPath),
                             getMemoOptions(table.options, 'debugRows', 'getVisibleCells')
                         );
+
 
                         // Keep track of every row in a flat array
                         rowModel.flatRows.push(row)

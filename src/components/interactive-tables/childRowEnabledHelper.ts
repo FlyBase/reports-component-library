@@ -22,6 +22,8 @@ export type ChildRowEnabledHelper<TData> =  ColumnHelper<TData> & {
         ) => AccessorFnColumnDef<TData>
 };
 
+const CONCATENATION_DELIMITER = "|~|"; //Just needs to be something unlikely to be in a symbol/name
+
 
 const createChildRowEnabledHelper = <TData extends RowData,>() => {
     const originalHelper = createColumnHelper<TData>();
@@ -52,7 +54,7 @@ const createChildRowEnabledHelper = <TData extends RowData,>() => {
                                 : ""
                     )
 
-                    return childAccessorValues.join(" ");
+                    return childAccessorValues.join(CONCATENATION_DELIMITER);
                 },
                 meta: {
                     ...childColumnDef.meta,

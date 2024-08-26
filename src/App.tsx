@@ -8,7 +8,7 @@ import SplitSystemCombinationSearchTable from "./components/interactive-tables/S
 
 function App() {
   return (
-    <div style={{ maxWidth: "600px", maxHeight: "500px" }}>
+    <div>
         <SplitSystemCombinationSearchTable expression={{ anatomy: "alpha/beta surface Kenyon cell" }}/>
     </div>
   );

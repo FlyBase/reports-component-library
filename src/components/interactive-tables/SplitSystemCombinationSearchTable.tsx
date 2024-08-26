@@ -1,13 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import InteractiveTable from "./InteractiveTable";
 import {ChildRowEnabledRow} from "./getChildRowEnabledCoreRowModel";
 import useGAL4Search, {SSCWithExpressionTerms} from "../../hooks/useGAL4Search";
 import {ExpressionSearchInput} from "../../__generated__/graphql";
 import createChildRowEnabledHelper from "./childRowEnabledHelper";
+import useSmartStorage from "../../hooks/useSmartStorage";
 
 type SplitSystemCombinationSearchTableProps = {
     expression: ExpressionSearchInput
 };
+
+const sanitizeSymbol = (symbol?: string | null) => {
+    if(!symbol) return "";
+    return symbol.replaceAll(/[[∩\]]/g, "")
+                 .replaceAll(/INTERSECTION/g, "")
+                 .replaceAll(/<\/?up>/g, "")
+}
+
+const CONCATENATION_DELIMITER = "|~|"; //Just needs to be something unlikely to be in a symbol/name
 
 
 const sscSearchTableColumnHelper = createChildRowEnabledHelper<SSCWithExpressionTerms>();
@@ -16,25 +26,31 @@ const SSC_COLUMNS = [
     sscSearchTableColumnHelper.group({
         header: "Split System Combination",
         columns: [
-            sscSearchTableColumnHelper.accessor(ssc => `${ssc.symbol} ${ssc.id}`, {
+            sscSearchTableColumnHelper.accessor(ssc => `${sanitizeSymbol(ssc.symbol)}${CONCATENATION_DELIMITER}${ssc.id}`, {
                 id: "symbol",
                 meta: { displayName: "Symbol" },
                 header: "Symbol",
                 cell: props => (
-                    <td rowSpan={(props.row as ChildRowEnabledRow<SSCWithExpressionTerms>).totalChildRows || 1}>
-                        <a href={`/reports/${props.row.original.id}`}>{props.row.original.symbol?.split("INTERSECTION").map((x,i)=><React.Fragment key={`${x}-${i}`}>{x}<br/></React.Fragment>)}</a>
-                    </td>
+                    <a href={`/reports/${props.row.original.id}`}
+                       dangerouslySetInnerHTML={{
+                        __html: props.row.original.symbol?.split("INTERSECTION")
+                               .join("∩<br/>")
+                               .replaceAll(/\[/g, "<up>")
+                               .replaceAll(/]/g, "</up>") || ""
+                       }}
+                    >
+                    </a>
                 )
             }),
             sscSearchTableColumnHelper.accessor(ssc =>
                 !ssc.componentAlleles ? "" : ssc.componentAlleles
                     .map(
                         allele => allele.expressionTerms ? allele.expressionTerms.map(
-                            term => (term && term.id && term.name) ? `${term.name} ${term.id}` : ""
+                            term => (term && term.id && term.name) ? `${term.name}${CONCATENATION_DELIMITER}${term.id}` : ""
                         ) : []
                     )
                     .flat()
-                    .reduce((prev, curr, index, array) => array.indexOf(curr) === index ? `${prev} ${curr}` : prev)
+                    .reduce((prev, curr, index, array) => array.indexOf(curr) === index ? `${prev}${CONCATENATION_DELIMITER}${curr}` : prev)
                 ,{
                     id: "expressionTerms",
                     header: "Expression terms",
@@ -49,13 +65,14 @@ const SSC_COLUMNS = [
                         })
 
                         return (
-                            <td rowSpan={(props.row as ChildRowEnabledRow<SSCWithExpressionTerms>).totalChildRows || 1}>
+                            <>
                                 {
                                     Object.keys(allExpressionTermsIndexed)
                                         .map(
                                             id => <a href={`/reports/${id}`} key={id}>{allExpressionTermsIndexed[id]}</a>
-                                        )}
-                            </td>
+                                        )
+                                }
+                            </>
                         )
                     }
                 }
@@ -63,150 +80,156 @@ const SSC_COLUMNS = [
             sscSearchTableColumnHelper.accessor("stocksCount", {
                 header: "# Stocks",
                 cell: props => (
-                    <td rowSpan={(props.row as ChildRowEnabledRow<SSCWithExpressionTerms>).totalChildRows || 1}>
-                        <a href={`/hitlist/${props.row.original.id}/to/FBst`}>{props.row.original.stocksCount}</a>
-                    </td>
-                )
+                    <a href={`/hitlist/${props.row.original.id}/to/FBst`}>{props.row.original.stocksCount}</a>
+                ),
+                sortingFn: "alphanumeric",
+                meta: {
+                    align: "right"
+                }
             }),
             sscSearchTableColumnHelper.accessor("pubCount", {
                 header: "# Refs",
                 cell: props => (
-                    <td rowSpan={(props.row as ChildRowEnabledRow<SSCWithExpressionTerms>).totalChildRows || 1}>
-                        <a href={`/hitlist/${props.row.original.id}/to/FBrf`}>{props.row.original.pubCount}</a>
-                    </td>
-                )
+                    <a href={`/hitlist/${props.row.original.id}/to/FBrf`}>{props.row.original.pubCount}</a>
+                ),
+                sortingFn: "alphanumeric",
+                meta: {
+                    align: "right"
+                }
             })
         ]
     }),
     sscSearchTableColumnHelper.group({
         header: "Component Alleles",
         columns: [
-            sscSearchTableColumnHelper.childAccessor("componentAlleles", allele => `${allele.symbol} ${allele.id}`, {
+            sscSearchTableColumnHelper.childAccessor("componentAlleles", allele => `${sanitizeSymbol(allele.symbol)}${CONCATENATION_DELIMITER}${allele.id}`, {
                 id: "Symbol",
                 header: "Symbol",
                 cell: props => (
-                    <td rowSpan={props.row.totalChildRows || 1}>
-                        <a href={`/reports/${props.row.original.id}`}>{props.row.original.symbol}</a>
-                    </td>
+                    <a href={`/reports/${props.row.original.id}`} dangerouslySetInnerHTML={{ __html: props.row.original.symbol || "" }}></a>
                 )
             }),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => allele.insertions.map(insertion => `${insertion.symbol} ${insertion.id}`).join(" "),
+                allele => allele.insertions.map(insertion => `${sanitizeSymbol(insertion.symbol)}${CONCATENATION_DELIMITER}${insertion.id}`).join(CONCATENATION_DELIMITER),
                 {
                     id: "Insertions",
                     header: "Insertion / Construct",
                     cell: props => (
-                        <td rowSpan={props.row.totalChildRows || 1}>
+                        <>
                             {
                                 props.row.original.insertions.map(insertion => (
                                     <a href={`/reports/${insertion.id}`}>{insertion.symbol}</a>
                                 ))
                             }
-                        </td>
+                        </>
                     )
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => allele.insertedElementTypes?.map(elementType => elementType === null ? "" : `${elementType.name} ${elementType.id}`).join(" "),
+                allele => allele.insertedElementTypes?.map(elementType => elementType === null ? "" : `${elementType.name}${CONCATENATION_DELIMITER}${elementType.id}`).join(CONCATENATION_DELIMITER),
                 {
                     id: "InsertedElements",
                     header: "Inserted Element Type",
                     cell: props => (
-                        <td rowSpan={props.row.totalChildRows || 1}>
+                        <>
                             {
                                 props.row.original.insertedElementTypes?.map(elementType => elementType ? (
                                     <a href={`/reports/${elementType.id}`}>{elementType.name}</a>
                                 ) : null)
                             }
-                        </td>
+                        </>
                     )
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => allele.regRegions?.map(region => region === null ? "" : `${region.symbol} ${region.id}`).join(" "),
+                allele => allele.regRegions?.map(region => region === null ? "" : `${sanitizeSymbol(region.symbol)}${CONCATENATION_DELIMITER}${region.id}`).join(CONCATENATION_DELIMITER),
                 {
                     id: "RegRegion",
                     header: "Regulatory Region",
                     cell: props => (
-                        <td rowSpan={props.row.totalChildRows || 1}>
+                        <>
                             {
                                 props.row.original.regRegions?.map(region => region ? (
                                     <a href={`/reports/${region.id}`} key={region.id}>{region.symbol}</a>
                                 ) : null)
                             }
-                        </td>
+                        </>
                     )
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => allele.encodedTools?.map(tool => tool === null ? "" : `${tool.symbol} ${tool.id}`).join(" "),
+                allele => allele.encodedTools?.map(tool => tool === null ? "" : `${sanitizeSymbol(tool.symbol)}${CONCATENATION_DELIMITER}${tool.id}`).join(CONCATENATION_DELIMITER),
                 {
                     id: "EncodedTool",
                     header: "Encoded Tool",
                     cell: props => (
-                        <td rowSpan={props.row.totalChildRows || 1}>
+                        <>
                             {
                                 props.row.original.encodedTools?.map(tool => tool ? (
                                     <a href={`/reports/${tool.id}`} key={tool.id}>{tool.symbol}</a>
                                 ) : null)
                             }
-                        </td>
+                        </>
                     )
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => allele.taggedWith?.map(tool => tool === null ? "" : `${tool.symbol} ${tool.id}`).join(" "),
+                allele => allele.taggedWith?.map(tool => tool === null ? "" : `${sanitizeSymbol(tool.symbol)}${CONCATENATION_DELIMITER}${tool.id}`).join(CONCATENATION_DELIMITER),
                 {
                     id: "TaggedWith",
                     header: "Tagged With",
                     cell: props => (
-                        <td rowSpan={props.row.totalChildRows || 1}>
+                        <>
                             {
                                 props.row.original.taggedWith?.map(tool => tool ? (
                                     <a href={`/reports/${tool.id}`} key={tool.id}>{tool.symbol}</a>
                                 ) : null)
                             }
-                        </td>
+                        </>
                     )
                 }
             ),
             sscSearchTableColumnHelper.childAccessor(
                 "componentAlleles",
-                allele => allele.tagUses?.map(use => use === null ? "" : `${use.name} ${use.id}`).join(" "),
+                allele => allele.tagUses?.map(use => use === null ? "" : `${use.name}${CONCATENATION_DELIMITER}${use.id}`).join(CONCATENATION_DELIMITER),
                 {
                     id: "TaggedUses",
                     header: "Tagged Uses",
                     cell: props => (
-                        <td rowSpan={props.row.totalChildRows || 1}>
+                        <>
                             {
                                 props.row.original.tagUses?.map(use => use ? (
                                     <a href={`/reports/${use.id}`} key={use.id}>{use.name}</a>
                                 ) : null)
                             }
-                        </td>
+                        </>
                     )
                 }
             ),
             sscSearchTableColumnHelper.childAccessor("componentAlleles", "stocksCount", {
                 header: "# Stocks",
                 cell: props => (
-                    <td rowSpan={props.row.totalChildRows || 1}>
-                        <a href={`/hitlist/${props.row.original.id}/to/FBst`}>{props.row.original.stocksCount}</a>
-                    </td>
-                )
+                    <a href={`/hitlist/${props.row.original.id}/to/FBst`}>{props.row.original.stocksCount}</a>
+                ),
+                sortingFn: "alphanumeric",
+                meta: {
+                    align: "right"
+                }
             }),
             sscSearchTableColumnHelper.childAccessor("componentAlleles", "pubCount", {
                 header: "# Refs",
                 cell: props => (
-                    <td rowSpan={props.row.totalChildRows || 1}>
-                        <a href={`/hitlist/${props.row.original.id}/to/FBrf`}>{props.row.original.pubCount}</a>
-                    </td>
-                )
+                    <a href={`/hitlist/${props.row.original.id}/to/FBrf`}>{props.row.original.pubCount}</a>
+                ),
+                sortingFn: "alphanumeric",
+                meta: {
+                    align: "right"
+                }
             })
         ]
     })
@@ -214,7 +237,11 @@ const SSC_COLUMNS = [
 
 const SplitSystemCombinationSearchTable: React.FC<SplitSystemCombinationSearchTableProps> = ({expression}) => {
 
+    const [{ type }] = useSmartStorage("gal4Search");
+
     const {loading, errors, data: { sscSearch }} = useGAL4Search({ expression }, "ssc");
+
+    if(!type || type !== "ssc") return null;
 
     if(loading) return <div>Loading...</div>;
 

@@ -128,3 +128,14 @@ file is included in the page (and after the containers being loaded into), every
   - location on server: `~/flybase-server/htdocs/reactbundles/geneReportInjector.js` and `~/flybase-server/htdocs/reactbundles/geneReportInjector.css`
   - creates:
     - All ribbon sections
+    - Gene ToolKit most commonly used section
+- Home Page:
+  - build file name: `homePageInjector.[hash-here].js` and `homePageInjector.[hash-here].css`
+  - location on server: `~/flybase-server/htdocs/reactbundles/homePageInjector.js` and `~/flybase-server/htdocs/reactbundles/homePageInjector.css`
+  - creates:
+    - Mastodon Feed
+- Gal4 Search:
+  - build file name: `gal4SearchInjector.[hash-here].js` and `gal4SearchInjector.[hash-here].css`
+  - location on server: `~/flybase-server/htdocs/reactbundles/gal4SearchInjector.js` and `~/flybase-server/htdocs/reactbundles/gal4SearchInjector.css`
+  - creates:
+    - SSC table

@@ -80,11 +80,20 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
     //listener below, and thus this useEffect?
     useEffect(() => {
         let fullValue: any = window.localStorage.getItem(localStorageKey);
+        if(fullValue === JSON.stringify(value)) {
+            return;
+        }
         fullValue = fullValue === null ? {} : JSON.parse(fullValue);
         const parentPath = rootPath.substring(localStorageKey.length + 1, rootPath.lastIndexOf(".")) || rootPath;
         const keyToUpdate = rootPath.substring(rootPath.lastIndexOf(".") + 1);
-        let childPathObject: any = getByPath(fullValue, parentPath);
-        childPathObject[keyToUpdate] = value;
+
+        if(parentPath !== keyToUpdate) {
+            const childPathObject: any = getByPath(fullValue, parentPath);
+            childPathObject[keyToUpdate] = value;
+        } else {
+            fullValue = value;
+        }
+
         window.localStorage.setItem(localStorageKey, JSON.stringify(fullValue));
         window.dispatchEvent(new CustomEvent('localStorage'));
     }, [localStorageKey, rootPath, value]);

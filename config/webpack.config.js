@@ -204,6 +204,7 @@ module.exports = function (webpackEnv) {
       main: paths.appIndexJs,
       geneReportInjector: paths.injectorGenePage,
       homePageInjector: paths.injectorHomePage,
+      gal4SearchInjector: paths.injectorGal4SearchPage,
     },
     output: {
       // The build folder.

@@ -1,0 +1,38 @@
+@use "colors";
+
+.dropdown-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-family: "clear_sansregular",sans-serif;
+  height: 30px;
+  font-weight: 700;
+  font-size: 15px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid black;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    background-color: darken(white, 10%);
+  }
+
+  .child-wrapper {
+    position: absolute;
+    background-color: white;
+    padding: 15px;
+    top: calc(100% + 5px);
+    left: 0;
+    border-radius: 8px;
+    border: 1px solid black;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    z-index: 10;
+  }
+
+  svg {
+    height: 20px;
+    fill: colors.$fbInputBlue;
+  }
+}

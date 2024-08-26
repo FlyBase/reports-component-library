@@ -1,12 +1,11 @@
 import '@tanstack/react-table';
-import {Cell, CellContext, RowData} from "@tanstack/react-table";
+import {CellContext, RowData} from "@tanstack/react-table";
 import {DeepKeys} from "@tanstack/table-core/src/utils";
 import {
-    DeepKeysMaxDepth,
     DeepKeysOfObjectArrayTypes,
     TypeByPath
 } from "./components/interactive-tables/SplitSystemCombinationSearchTable";
-import {ChildRowType} from "./components/interactive-tables/getChildRowEnabledCoreRowModel";
+import {TypeOrArrayType} from "./types";
 
 export type ChildCellContext<ParentType, ChildType> = Omit<CellContext<ParentType>, "row"> & {
     row: Omit<CellContext<ParentType>['row'], "original"> & {
@@ -27,6 +26,7 @@ declare module '@tanstack/react-table' {
             path: ChildPath,
             cell: string | ((props: ChildCellContext<TData, ChildType>) => any)
         },
-        displayName?: string
+        displayName?: string,
+        align?: 'left' | 'center' | 'right'
     }
 }

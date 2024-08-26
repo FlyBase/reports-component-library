@@ -60,6 +60,7 @@ module.exports = {
   appIndexJs: resolveModule(resolveApp, 'src/index'),
   injectorGenePage: resolveModule(resolveApp, 'src/injectors/injectGeneReport'),
   injectorHomePage: resolveModule(resolveApp, 'src/injectors/injectHomePage'),
+  injectorGal4SearchPage: resolveModule(resolveApp, 'src/injectors/injectGal4Search'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),
