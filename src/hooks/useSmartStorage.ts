@@ -47,6 +47,8 @@ const reducer = (state: any, action: { rootPath: string, newValue: any, replaceA
         }
     }
 
+    console.log("SSC REDUCER FINAL", action.newValue);
+
     return action.newValue;
 };
 /**
@@ -82,7 +84,7 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
     //TODO: add logic to prevent this when triggers because a different hook changes localStorage, firing the event
     //listener below, and thus this useEffect?
     useEffect(() => {
-        console.log("useEFFECT", value, isSelfUpdating)
+        console.log("SSC useEFFECT", value, isSelfUpdating)
         if(isSelfUpdating) {
             return;
         }
@@ -119,7 +121,7 @@ const useSmartStorage = <TData = any,>(rootPath: string): [TData, (path: string,
             realValue = getByPath(JSON.parse(window.localStorage.getItem(localStorageKey)!), rootPath.substring(localStorageKey.length) || rootPath);
         }
 
-        console.log("UPDATE VALUE", window.localStorage.getItem(localStorageKey), value, realValue);
+        console.log("SSC UPDATE VALUE", window.localStorage.getItem(localStorageKey), value, realValue);
 
         //Only refresh state if the new value is different. (prevents infinite loops)
         if(JSON.stringify(realValue) !== JSON.stringify(value)) {
